@@ -61,14 +61,46 @@ new \core\config();
 
 //create alias for Router
 use \core\router,
-    \helpers\url;
+    \helpers\session;
+
+//set language to session
+if(!session::get('language')){
+  $setlang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+  switch ($setlang){
+    case "de":
+      session::set('language','de');
+      break;
+    case "en":
+      session::set('language','en');
+      break;
+    default:
+      session::set('language','en');
+      break;
+  }
+}
 
 //define routes
-Router::any('', '\controllers\welcome@index');
-Router::any('/subpage', '\controllers\welcome@subpage');
+if(session::get('logged_in')){
+  Router::get('', '\controllers\main@index');
+  Router::get('/polls', '\controllers\poll@overview');
+  Router::get('/poll/(:num)', '\controllers\poll@show');
+  Router::get('/poll/create', '\controllers\poll@create');
+  Router::post('/poll/create', '\controllers\poll@createPoll');
+  Router::post('/poll/(:num)', '\controllers\poll@answer');
+  Router::get('logout', '\controllers\main@logout');
+  Router::post('/poll/(:num)/comment', '\controllers\comment@poll');
+} else {
+  Router::get('', '\controllers\welcome@welcome');
+}
+Router::get('/impressum', '\controllers\main@impressum');
+Router::post('/email', '\controllers\main@emailMessage');
+Router::post('/oauth/login', '\controllers\oauth@login');
+Router::get('/oauth/callback', '\controllers\oauth@callback');
+Router::get('/rss', '\controllers\rss@feed');
 
 //if no route found
-Router::error('\core\error@index');
+//Router::error('\core\error@index');
+Router::error('\controllers\welcome@welcome');
 
 //turn on old style routing
 Router::$fallback = false;

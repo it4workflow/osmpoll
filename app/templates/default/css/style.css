@@ -1,1 +1,4 @@
 /* Your styles here */
+input[type=checkbox], input[type=radio] {
+  vertical-align: top;
+}

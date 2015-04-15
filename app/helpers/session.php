@@ -21,6 +21,11 @@ class Session {
 	public static function init(){
 
 		if(self::$_sessionStarted == false){
+      //set session attributes
+      $lifetime = 30 * (24 * 60 * 60);
+      ini_set('session.cookie_lifetime', $lifetime);
+      ini_set('session.gc_maxlifetime', $lifetime);
+      session_set_cookie_params($lifetime);
 			session_start();
 			self::$_sessionStarted = true;
 		}

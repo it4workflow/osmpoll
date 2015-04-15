@@ -5,7 +5,7 @@ Options -Indexes
  	Options -Indexes
 
 	RewriteEngine On
-	RewriteBase /
+	RewriteBase /osmpoll/
 
 	# Force to exclude the trailing slash
 	RewriteCond %{REQUEST_FILENAME} !-d

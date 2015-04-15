@@ -1,10 +1,24 @@
-
-<div class="page-header">
-	<h1><?php echo $data['title'] ?></h1>
-</div>
-
-<p><?php echo $data['welcome_message'] ?></p>
-
-<a class="btn btn-md btn-success" href="<?php echo DIR ?>subpage">
-	<?php echo core\language::show('open_subpage', 'welcome') ?>
-</a>
+  <div class="container">
+    <div class="alert alert-warning" role="alert">
+      <strong><?=core\language::show('login_required','welcome', \helpers\session::get('language')) ?></strong>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3><?=core\language::show('how_title','welcome', \helpers\session::get('language')) ?></h3>
+        <?=core\language::show('how_description','welcome', \helpers\session::get('language')) ?>
+        <form action="oauth/login" method="post" name="oauth-login" class="form-horizontal" role="form">
+          <button type="submit" class="btn btn-default" name="login" ><?=core\language::show('login','welcome', \helpers\session::get('language')) ?></button>
+        </form>   
+      </div>
+      <div class="col-sm-4">
+        <h3><?=core\language::show('why_title','welcome', \helpers\session::get('language')) ?></h3>
+        <?=core\language::show('why_description','welcome', \helpers\session::get('language')) ?>
+      </div>
+      <div class="col-sm-4">
+        <h3><?=core\language::show('which_title','welcome', \helpers\session::get('language')) ?></h3>
+        <?=core\language::show('which_description','welcome', \helpers\session::get('language')) ?>
+      </div>
+    </div>
+  </div>

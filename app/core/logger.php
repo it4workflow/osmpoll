@@ -57,7 +57,7 @@ class Logger {
 	* @param  boolean   $clear       clear the errorlog
 	* @param  string    $error_file  file to save to
 	*/
-	public static function newMessage(Exception $exception, $print_error = false, $clear = false, $error_file = 'errorlog.html') {
+	public static function newMessage(Exception $exception, $print_error = true, $clear = false, $error_file = '/tmp/errorlog.html') {
 
 		$message = $exception->getMessage();
 		$code = $exception->getCode();
@@ -100,7 +100,7 @@ class Logger {
 	* @param  boolean $print_error display error
 	* @param  string  $error_file  file to save to
 	*/
-	public static function errorMessage($error, $print_error = false, $error_file = 'errorlog.html') {
+	public static function errorMessage($error, $print_error = true, $error_file = 'errorlog.html') {
 
 		$date = date('M d, Y G:iA');
 		$log_message = "<p>Error on $date - $error</p>";
