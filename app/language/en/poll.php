@@ -2,10 +2,10 @@
 
 return array(
 
-  "chk_anonym" => "anonym / incognito (osm-user-id won't be safed on answer)",
+  "chk_anonym" => "submit anonymously (user id won't be saved with answer)",
   "btn_answer" => "Answer",
   "btn_abstain" => "Abstain",
-  "btn_create" => "create poll",
+  "btn_create" => "Create poll",
 
   "question" => "Question",
   "question_placeholder" => "max. 255 chars",
@@ -23,17 +23,17 @@ return array(
   "newpoll_headline" => "New poll...",
   "hints_headline" => "Hints",
   "hints" => "<ul>
-  <li><strong>a started poll can only deleted by request!</strong></li>
-  <li>explicit question</li>
-  <li>short answer (display in charts)</li>
-  <li>you can choose only one answer, multiselection not possible</li>
-  <li>you can abstain, but anyway you can specify an answer like I don't care, etc.</li>
-  <li>poll period 30 days</li>
+  <li><strong>once started, a poll can only be deleted by the administrator.</strong></li>
+  <li>write clear an dconcise questions</li>
+  <li>answers must be short (for chart display)</li>
+  <li>users may only choose one answer</li>
+  <li>users can abstain but you may also provide an answer like \"don't care\" etc.</li>
+  <li>all polls run for 30 days</li>
   </ul>",
 
-  "wanttoknow" => "want to know:",
+  "wanttoknow" => "would like to know:",
 
-  "thank_for_answer" => "Thanks for your Answer.",
-  "choose_an_answer" => "If you would answer you should choose an answer!",
+  "thank_for_answer" => "Thank you for participating.",
+  "choose_an_answer" => "Please choose one of the available answers.",
   
 );
