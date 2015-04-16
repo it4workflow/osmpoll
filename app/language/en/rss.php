@@ -3,6 +3,6 @@
 return array(
 
   "title" => "Polls",
-  "description" => "running polls on pollsplattform for OpenStreetMap",
+  "description" => "list of active polls on the OpenStreetMap polls platform",
   
 );
