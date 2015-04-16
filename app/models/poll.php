@@ -13,7 +13,7 @@ class Poll extends \core\model {
     return $this->_db->select('SELECT id, frage, created, created_by FROM '.PREFIX.'fragen ORDER BY created DESC'. ($limit ? ' LIMIT 10' : ''));
   }
 
-  public function getPollsOpen($user_id){
+  public function getPollsOpen($user_id=0){
     return $this->_db->select('SELECT id, frage, created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC', array(':user_id'=>$user_id));
   }
 
