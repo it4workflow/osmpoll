@@ -13,8 +13,8 @@ class Poll extends \core\model {
     return $this->_db->select('SELECT id, frage, created, created_by FROM '.PREFIX.'fragen ORDER BY created DESC'. ($limit ? ' LIMIT 10' : ''));
   }
 
-  public function getPollsOpen(){
-    return $this->_db->select('SELECT id, frage, created, created_by, startdate, enddate, count(stimmen.frage_id) as count FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC');
+  public function getPollsOpen($user_id){
+    return $this->_db->select('SELECT id, frage, created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC', array(':user_id'=>$user_id));
   }
 
   public function getPollsClosed(){
@@ -23,10 +23,6 @@ class Poll extends \core\model {
 
   public function getAnswers($id){
     return $this->_db->select('SELECT id, antwort, description FROM '.PREFIX.'antworten WHERE frage_id = :id AND id>0 ORDER BY id', array(':id' => $id));
-  }
-
-  public function getUnanswered($user_id){
-    return $this->_db->select('SELECT fragen.id, frage, created, created_by FROM fragen LEFT JOIN answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE DATEDIFF(NOW(), created)<30 AND answered.frage_id IS NULL ORDER BY created', array(':user_id'=>$user_id));
   }
 
   public function getDonut($id){
