@@ -1,14 +1,19 @@
-<?='<?xml version="1.0" encoding="utf-8"?>'?>
+<?php
+header('Content-Type: application/rss+xml; charset=UTF-8');
+echo '<?xml version="1.0" encoding="UTF-8"?>'
+?>
 
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
  
   <channel>
+    <atom:link href="http://osm.haraldhartmann.de/umfrage/rss" rel="self" type="application/rss+xml" />
     <title><?=htmlspecialchars(core\language::show('title','rss'), ENT_COMPAT|ENT_XML1) ?></title>
     <link>http://osm.haraldhartmann.de/umfrage/</link>
     <description><?=htmlspecialchars(core\language::show('description','rss'), ENT_COMPAT|ENT_XML1) ?></description>
     <language>de-de</language>
-    <copyright>Harald Hartmann &lt;osm@haraldhartmann.de&gt;</copyright>
-    <pubDate><?php $date = new DateTime(); echo $date->format(DateTime::RFC822);?></pubDate>
+    <copyright>Harald Hartmann, osm@haraldhartmann.de</copyright>
+    <ttl>60</ttl>
+    <pubDate><?php $date = new DateTime(); echo $date->format(DateTime::RSS);?></pubDate>
     <!--
     <image>
       <url>URL einer einzubindenden Grafik</url>
@@ -27,9 +32,9 @@
         &lt;/ul&gt;
       </description>
       <link>http://osm.haraldhartmann.de/umfrage/poll/<?=$poll['poll']->id?></link>
-      <author><?=htmlspecialchars($poll['poll']->created_by, ENT_COMPAT|ENT_XML1) ?></author>
-      <guid><?=$poll['poll']->id?></guid>
-      <pubDate><?php $date = new DateTime($poll['poll']->startdate); echo $date->format(DateTime::RFC822); ?></pubDate>
+      <dc:creator><?=htmlspecialchars($poll['poll']->created_by, ENT_COMPAT|ENT_XML1) ?></dc:creator>
+      <guid>http://osm.haraldhartmann.de/umfrage/poll/<?=$poll['poll']->id?></guid>
+      <pubDate><?php $date = new DateTime($poll['poll']->startdate); echo $date->format(DateTime::RSS); ?></pubDate>
     </item>
     <?php } ?>
   </channel>
