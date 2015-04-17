@@ -18,6 +18,7 @@
 		helpers\assets::css(array(
 			helpers\url::template_path() . 'css/bootstrap.min.css',
       helpers\url::template_path() . 'css/bootstrap-theme.min.css',
+      helpers\url::template_path() . 'css/dataTables.bootstrap.css',
 			helpers\url::template_path() . 'css/style.css',
       helpers\url::template_path() . 'css/custom.css'
 		))

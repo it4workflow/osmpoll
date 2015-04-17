@@ -12,10 +12,16 @@
   </footer>
 
 <!-- JS -->
-<?php helpers\assets::js(helpers\url::template_path() . 'js/jquery.js') ?>
-<?php helpers\assets::js(helpers\url::template_path() . 'js/bootstrap.min.js') ?>
-<?php helpers\assets::js(helpers\url::template_path() . 'js/highcharts.js') ?>
-<?php helpers\assets::js(helpers\url::template_path() . 'js/stats.js') ?>
-
+<?php
+  helpers\assets::js(array(
+    helpers\url::template_path() . 'js/jquery.js',
+    helpers\url::template_path() . 'js/bootstrap.min.js',
+    helpers\url::template_path() . 'js/jquery.dataTables.min.js',
+    helpers\url::template_path() . 'js/dataTables.bootstrap.js',
+    helpers\url::template_path() . 'js/highcharts.js',
+    helpers\url::template_path() . 'js/dataTables.js',
+    helpers\url::template_path() . 'js/stats.js'
+  ))
+?>    
 </body>
 </html>

@@ -1,4 +1,7 @@
 $(function () {
+  
+  var stackedChart=$('#stacked');
+  if(stackedChart.length>0){
     $('#stacked').highcharts({
         chart: {
             type: 'bar'
@@ -25,7 +28,10 @@ $(function () {
         },
         series: stackeddata.series
     });
+  }
 
+  var donatChart=$('#donut');
+  if(donatChart.length>0){
     $('#donut').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -56,7 +62,6 @@ $(function () {
             data: donutdata
         }]
     });
+  }
+  
 });
-
-
-
