@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo LANGUAGE_CODE; ?>">
+<html lang="<?=\helpers\session::get('language'); ?>">
 <head>
 
 	<title><?php echo $data['title'].' - '.SITETITLE; //SITETITLE defined in app/core/config.php ?></title>

@@ -63,7 +63,8 @@ class OAuth extends \core\controller{
       try {
         OAuthRequester::requestAccessToken($this->config['consumer_key'], $_GET['oauth_token'], session_id());
         $this->getUserDetails();
-        \helpers\url::redirect('');
+        $redirect=session::get('referer');
+        \helpers\url::redirect($redirect);
       } catch(OAuthException $E) {
         echo("<pre>Exception:\n");
         var_dump($E);
