@@ -37,6 +37,11 @@ class Main extends \core\controller{
     View::rendertemplate('footer');
   }
 
+  public function language($language) {
+    \helpers\session::set('language',$language);
+    \helpers\url::redirect('');
+  }
+
   public function logout() {
     \helpers\session::destroy();
     \helpers\url::redirect('');

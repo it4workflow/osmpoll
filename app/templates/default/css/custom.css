@@ -1,3 +1,24 @@
 .antispam {
 	display: none
 }
+
+.navbar .selected {
+  font-weight: bold;
+}
+
+.flag {
+  min-height: 16px;
+  min-width: 27px;
+  display: inline-block;
+  padding-left: 35px !important;
+  background: none no-repeat 4px center;
+  background-size: 27px 16px;
+}
+
+.flag-de {
+  background-image: url('../images/flag_de.svg');
+}
+
+.flag-en {
+  background-image: url('../images/flag_en.svg');
+}

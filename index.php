@@ -92,6 +92,7 @@ if(session::get('logged_in')){
 } else {
   Router::get('', '\controllers\welcome@welcome');
 }
+Router::get('/language/(:any)', '\controllers\main@language');
 Router::get('/impressum', '\controllers\main@impressum');
 Router::post('/email', '\controllers\main@emailMessage');
 Router::post('/oauth/login', '\controllers\oauth@login');

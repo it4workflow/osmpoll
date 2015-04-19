@@ -25,6 +25,7 @@ class Config {
 
 		//set a default language
 		define('LANGUAGE_CODE', 'en');
+    define('LANGUAGES', serialize(array( "de" => "Deutsch", "en" => "English")));
 
 		//database details ONLY NEEDED IF USING A DATABASE
 		define('DB_TYPE', 'mysql');

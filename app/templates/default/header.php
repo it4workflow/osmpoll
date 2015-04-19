@@ -48,6 +48,14 @@
         <?php } ?>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="http://osm.haraldhartmann.de/umfrage/rss/" target="_blank"><img src="<?=helpers\url::template_path() . 'images/rss.png' ?>" width="16px" alt="rss"/></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="flag flag-<?=\helpers\session::get('language')?>"><span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <?php foreach (unserialize(LANGUAGES) as $isocode=>$language) { ?>
+              <li><a href="<?=DIR.'language/'.$isocode?>" hreflang="<?=$isocode?>" class="flag flag-<?=$isocode?>"><span class="<?=\helpers\session::get('language')==$isocode?'selected':''?>"><?=$language?></span></a></li>
+              <?php } ?>
+            </ul>
+          </li>
           <li><a href="<?=DIR.'impressum'?>">Impressum</a></li>
         </ul>
       </div>
