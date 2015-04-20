@@ -6,11 +6,15 @@ class Poll extends \core\model {
 	}
 
   public function getPoll($id){
-    return $this->_db->select('SELECT id, frage, created, created_by FROM '.PREFIX.'fragen WHERE id = :id', array(':id' => $id));
+    return $this->_db->select('SELECT id, frage, description, created, created_by, startdate, enddate FROM '.PREFIX.'fragen WHERE id = :id', array(':id' => $id));
   }
 
   public function getPolls($limit=false){
     return $this->_db->select('SELECT id, frage, created, created_by FROM '.PREFIX.'fragen ORDER BY created DESC'. ($limit ? ' LIMIT 10' : ''));
+  }
+
+  public function getPollsDraft(){
+    return $this->_db->select('SELECT id, frage, created, created_by FROM '.PREFIX.'fragen WHERE startdate = "0000-00-00 00:00:00" ORDER BY created DESC');
   }
 
   public function getPollsOpen($user_id=0){
@@ -70,9 +74,21 @@ union select 'Nonrecurring', antworten.id, antwort, count(stimmen.antwort_id) fr
     return $this->_db->lastInsertId('id');
   }
 
+  public function updatePoll($poll, $where){
+    $this->_db->update(PREFIX.'fragen', $poll, $where);
+  }
+
   public function createAnswers($answers){
     foreach ($answers as $answer) {
       $this->_db->insert(PREFIX.'antworten', $answer);
     }
+  }
+
+  public function deleteAnswers($where){
+    $this->_db->delete(PREFIX.'antworten', $where, 10+1);
+  }
+
+  public function startPoll($values, $where) {
+    $this->_db->update(PREFIX.'fragen', $values, $where);
   }
 }

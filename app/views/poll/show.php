@@ -3,10 +3,11 @@
       <div class="panel-heading">
         <a href="https://www.openstreetmap.org/user/<?=$data['user_displayname']?>"><?=$data['user_displayname']?> <span class="glyphicon glyphicon-new-window"></span></a> <?=core\language::show('wanttoknow','poll', \helpers\session::get('language')) ?><br/>
         <h4><?=htmlentities($data['question']->frage)?></h4>
+        <?=htmlentities($data['question']->description)?>
       </div>
       <div class="panel-body">
 
-        <?php if ($data['public']) { ?>
+        <?php if ($data['closed'] || $data['draftmode'] || $data['answered']) { ?>
           <div class="panel panel-default">
           <?php foreach ($data['answers'] as $answer) { ?>
             <div>
@@ -40,7 +41,8 @@
           </div>
         </form>
         <?php } ?>
-        <?php if($data['public']) { ?>
+        
+        <?php if($data['closed'] || $data['answered']) { ?>
         <script type="text/javascript">
             var donutdata = [
               <?php foreach ($data['donut'] as $segment) { ?>
@@ -86,7 +88,7 @@
         </div>
         <?php } ?>
 
-        <?php if ($data['public']) { ?>
+        <?php //if ($data['public']) { ?>
         <div class="panel panel-default">
           <div class="panel-heading">
             <?=core\language::show('comment_headline','comment', \helpers\session::get('language')) ?>
@@ -107,7 +109,7 @@
 
           </div>
         </div>
-        <?php } ?>
+        <?php //} ?>
       </div>
     </div>
   </div>

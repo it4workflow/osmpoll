@@ -4,6 +4,9 @@
     <?php if( count($data['todo']) > 0 ) { ?>
       <li><a data-toggle="tab" href="#todo"><?=core\language::show('todo_polls','main', \helpers\session::get('language')) ?></a></li>
     <?php } ?>
+    <?php if( count($data['draft']) > 0 ) { ?>
+      <li><a data-toggle="tab" href="#draft"><?=core\language::show('draft_polls','main', \helpers\session::get('language')) ?></a></li>
+    <?php } ?>
     <li><a data-toggle="tab" href="#closed"><?=core\language::show('closed_polls','main', \helpers\session::get('language')) ?></a></li>
   </ul>
 
@@ -39,6 +42,37 @@
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
               <td><?=$poll->count?></td>
               <td><?=date_format(date_create($poll->enddate),'d.m.Y')?></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <?php } ?>
+    </div>
+
+    <div id="draft" class="tab-pane">
+      <?php if( count($data['draft']) > 0 ) { ?>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table id="drafttable" class="table table-striped" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
+              </tr>
+            </tfoot>
+            <tbody>
+            <?php foreach ($data['draft'] as $poll) {?>
+            <tr>
+              <td><?=$poll->created_by?></td>
+              <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
             </tr>
             <?php } ?>
             </tbody>

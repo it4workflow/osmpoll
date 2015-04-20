@@ -34,24 +34,31 @@ class Poll extends \core\controller{
 	public function show($id, $message="") {
 
     $poll = $this->_poll->getPoll($id)[0];
-
     $now = new DateTime("now");
-    $created = new DateTime($poll->created);
-    $interval = $now->diff($created);
+    $startdate = new DateTime($poll->startdate);
+    $enddate = new DateTime($poll->enddate);
 
     $data['message'] = $message;
     $data['user_displayname'] = $poll->created_by;
-    $data['public'] = count($this->_poll->hasAnswered($id, \helpers\session::get('osm_user_id')))==1 || $interval->days > 30 ? true : false ;
+    $data['answered'] = count($this->_poll->hasAnswered($id, \helpers\session::get('osm_user_id')))==1;
+    $data['draftmode'] = $startdate == $enddate;
+    $data['closed'] = $now >= $enddate && !$data['draftmode'];
     $data['answers'] = $this->_poll->getAnswers($id);
     $data['question'] = $poll;
     $data['donut'] = $this->_poll->getDonut($id);
     $data['stacked'] = $this->_poll->getStacked($id);
     $data['timeseries'] = $this->_poll->getTimeSeries($id);
     $data['comments'] = $this->_comment->getComments($id);
-        
-		View::rendertemplate('header', $data);
-		View::render('poll/show', $data);
-		View::rendertemplate('footer', $data);
+
+    if($data['draftmode'] && \helpers\session::get('osm_user_display_name') == $poll->created_by) {
+      View::rendertemplate('header', $data);
+      View::render('poll/create', $data);
+      View::rendertemplate('footer', $data);
+    } else {
+      View::rendertemplate('header', $data);
+      View::render('poll/show', $data);
+      View::rendertemplate('footer', $data);
+    }
 	}
 
   public function answer($id) {
@@ -80,16 +87,23 @@ class Poll extends \core\controller{
 		View::render('poll/create', $data);
 		View::rendertemplate('footer', $data);
   }
-  
-  public function createPoll() {
-    
-    $poll['frage'] = $_REQUEST['frage'];
-    $poll['created_by'] = \helpers\session::get('osm_user_display_name');
-    $poll['created_by_osmid'] = \helpers\session::get('osm_user_id');
-    $today = new DateTime();
-    $poll['startdate'] = $today->format('Y-m-d 00:00:00');
-    $poll['enddate'] = $today->add(new DateInterval('P30D'))->format('Y-m-d 00:00:00');
-    $id = $this->_poll->createPoll($poll);
+
+  public function savePoll() {
+
+    $id=0;
+
+    if(isset($_REQUEST['id'])){
+      $id = $_REQUEST['id'];
+      $poll['frage'] = $_REQUEST['frage'];
+      $poll['description'] = $_REQUEST['frage_description'];
+      $this->_poll->updatePoll($poll, array('id' => $id));
+    } else {
+      $poll['frage'] = $_REQUEST['frage'];
+      $poll['description'] = $_REQUEST['frage_description'];
+      $poll['created_by'] = \helpers\session::get('osm_user_display_name');
+      $poll['created_by_osmid'] = \helpers\session::get('osm_user_id');
+      $id = $this->_poll->createPoll($poll);
+    }
 
     $answers = array();
     $answer = array ('frage_id' => $id, 'id' => 0, 'antwort' => 'Enthaltung');
@@ -102,7 +116,20 @@ class Poll extends \core\controller{
         break;
       }
     }
+
+    $this->_poll->deleteAnswers(array('frage_id'=>$id));
     $this->_poll->createAnswers($answers);
+
+    if(isset($_REQUEST['start'])) {
+      $today = new DateTime();
+      $values = array (
+        'startdate' => $today->format('Y-m-d 00:00:00'),
+        'enddate' => $today->add(new DateInterval('P30D'))->format('Y-m-d 00:00:00')
+      );
+      $where = array ('id' => $id);
+      $this->_poll->startPoll($values, $where);
+    }
+    
     \helpers\url::redirect('');
   }
 

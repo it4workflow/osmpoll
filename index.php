@@ -85,7 +85,7 @@ if(session::get('logged_in')){
   Router::get('/polls', '\controllers\poll@overview');
   Router::get('/poll/(:num)', '\controllers\poll@show');
   Router::get('/poll/create', '\controllers\poll@create');
-  Router::post('/poll/create', '\controllers\poll@createPoll');
+  Router::post('/poll/create', '\controllers\poll@savePoll');
   Router::post('/poll/(:num)', '\controllers\poll@answer');
   Router::get('logout', '\controllers\main@logout');
   Router::post('/poll/(:num)/comment', '\controllers\comment@poll');

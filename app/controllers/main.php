@@ -20,6 +20,7 @@ class Main extends \core\controller{
 	public function index($message="") {
 
     $data['todo'] = $this->_polls->getUnanswered(\helpers\session::get('osm_user_id'));
+    $data['draft'] = $this->_polls->getPollsDraft();
     $data['open'] = $this->_polls->getPollsOpen(\helpers\session::get('osm_user_id'));
     $data['closed'] = $this->_polls->getPollsClosed();
     $data['message'] = $message;

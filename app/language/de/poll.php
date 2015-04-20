@@ -5,10 +5,16 @@ return array(
   "chk_anonym" => "Anonym / Inkognito (osm-user-id wird NICHT an der Antwort gespeichert)",
   "btn_answer" => "Antwort einreichen",
   "btn_abstain" => "Enthalten",
-  "btn_create" => "Umfrage erstellen",
+  "btn_create" => "Speichern",
+  "btn_create_hint" => "Die Umfrage wird als Entwurf gespeichert. Sie ist für jeden sichtbar und kann kommentiert werden.
+                        Nur der Ersteller kann weiterhin Änderungen vornehmen und die Umfrage starten.",
+  "btn_start" => "Starten",
+  "btn_start_hint" => "<strong>Die Umfrage wird sofort gestartet und kann danach weder gelöscht noch geändert werden!</strong>",
 
   "question" => "Frage",
   "question_placeholder" => "max. 255 Zeichen",
+  "question_description" => "Beschreibung",
+  "question_description_placeholder" => "zur Frage",
   "answer" => "Antwort",
   "answer_placeholder" => "max. 30 Zeichen (Schlagwort)",
   "answer_description" => "Beschreibung",
@@ -26,12 +32,11 @@ return array(
   "newpoll_headline" => "Neue Umfrage...",
   "hints_headline" => "Hinweise",
   "hints" => "<ul>
-  <li><strong>Eine gestartete Umfrage kann nur auf Anfrage gelöscht werden!</strong></li>
   <li>Eindeutige Frage stellen</li>
   <li>Kurze Antwort (wegen Anzeige im Diagramm)</li>
   <li>Bei der Abstimmung kann nur eine Antwort abgegeben werden, Mehrfachauswahl wird (noch) nicht unterstützt!</li>
   <li>Bei der Abstimmung kann man sich enthalten, trotzdem kann man hier auch eine Antwort wie 'mir egal' etc. vorgeben.</li>
-  <li>Umfrage läuft 30 Tage, danach ist sie geschlossen (aber weiterhin sichtbar)</li>
+  <li>Eine gestartete Umfrage läuft 30 Tage, danach ist sie geschlossen (aber weiterhin sichtbar)</li>
   </ul>",
 
   "wanttoknow" => "möchte wissen:",
