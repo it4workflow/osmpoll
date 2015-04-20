@@ -47,10 +47,13 @@ class OAuth extends \core\controller{
         session::set('osm_user_display_name', strval($xml->user['display_name']));
         session::set('osm_user_changesets', intval($xml->user->changesets['count']));
         session::set('osm_user_account_created', strval($xml->user['account_created']));
-        //print_r($xml->user->languages->lang);
-        //session::set('osm_user_language', $xml->user->languages->lang);
+        foreach($xml->user->languages->lang as $isocode){
+          if(preg_match('/^[a-z]{2}$/',$isocode)) {
+            session::set('language', strval($isocode));
+            break;
+          }
+        }
         session::set('logged_in', true);
-        
     } catch(OAuthException $E) {
         echo("<pre>Exception:\n");
         var_dump($E);
