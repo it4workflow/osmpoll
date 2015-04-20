@@ -47,8 +47,7 @@
                 ['<?=$segment->antwort;?>', <?=isset($segment->count)?$segment->count:0 ?>],
               <?php } ?>
             ];
-        </script>
-        <script type="text/javascript">
+
             var stackeddata = { categories: ['Gold', 'Senior+', 'Senior', 'Junior', 'Nonrecurring'],
               series: [
               <?php foreach ($data['stacked'] as $key=>$type) { ?>
@@ -59,13 +58,30 @@
               <?php } ?>
               ]
             };
+
+            var timeseries = [
+              <?php foreach ($data['timeseries'] as $date) { ?>
+                [Date.UTC(<?=$date->year?>, <?=$date->month - 1;?>, <?=$date->day?>), <?=$date->count?>],
+              <?php } ?>
+            ];
         </script>
-        <div class="row">
-          <div class="col-sm-6">
-            <div id="donut" class="panel panel-default"></div>
-          </div>
-          <div class="col-sm-6">
-            <div id="stacked" class="panel panel-default"></div>
+
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a data-toggle="tab" href="#donut-tab"><?=core\language::show('chart_donut','poll', \helpers\session::get('language')) ?></a></li>
+            <li><a data-toggle="tab" href="#stacked-tab"><?=core\language::show('chart_stacked','poll', \helpers\session::get('language')) ?></a></li>
+            <li><a data-toggle="tab" href="#time-tab"><?=core\language::show('chart_time','poll', \helpers\session::get('language')) ?></a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="donut-tab" class="tab-pane in active" role="tabpanel">
+              <div id="donut"> </div>
+            </div>
+            <div id="stacked-tab" class="tab-pane" role="tabpanel">
+              <div id="stacked"> </div>
+            </div>
+            <div id="time-tab" class="tab-pane" role="tabpanel">
+              <div id="time"> </div>
+            </div>
           </div>
         </div>
         <?php } ?>

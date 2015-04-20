@@ -14,11 +14,11 @@ class Poll extends \core\model {
   }
 
   public function getPollsOpen($user_id=0){
-    return $this->_db->select('SELECT id, frage, created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC', array(':user_id'=>$user_id));
+    return $this->_db->select('SELECT id, frage, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC', array(':user_id'=>$user_id));
   }
 
   public function getPollsClosed(){
-    return $this->_db->select('SELECT id, frage, created, created_by, startdate, enddate, count(stimmen.frage_id) as count FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id WHERE enddate<NOW() GROUP BY fragen.id ORDER BY created DESC');
+    return $this->_db->select('SELECT id, frage, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id WHERE enddate<NOW() GROUP BY fragen.id ORDER BY created DESC');
   }
 
   public function getAnswers($id){
@@ -42,6 +42,10 @@ union select 'Nonrecurring', antworten.id, antwort, count(stimmen.antwort_id) fr
       $stacked[$row->antwort][$row->mappertype] = $row->count;
     }
     return $stacked;
+  }
+
+  public function getTimeSeries($id) {
+    return $this->_db->select('SELECT year(created) as `year`, month(created) as `month`, day(created) as `day`, count(frage_id) as `count` FROM '.PREFIX.'stimmen WHERE frage_id=:id GROUP BY year(created), month(created), day(created) ORDER BY `year`, `month`, `day`', array(':id'=>$id));
   }
 
   public function hasAnswered($id, $user){

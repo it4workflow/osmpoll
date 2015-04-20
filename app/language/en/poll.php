@@ -19,6 +19,9 @@ return array(
   "until" => "running until",
   "until_closed" => "closed",
   
+  "chart_donut" => "Donut",
+  "chart_stacked" => "Stacked",
+  "chart_time" => "Time",
 
   "newpoll_headline" => "New poll...",
   "hints_headline" => "Hints",

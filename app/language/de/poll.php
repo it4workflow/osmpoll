@@ -19,6 +19,9 @@ return array(
   "until" => "läuft bis",
   "until_closed" => "abgelaufen",
   
+  "chart_donut" => "Donut",
+  "chart_stacked" => "Stacked",
+  "chart_time" => "Time",
 
   "newpoll_headline" => "Neue Umfrage...",
   "hints_headline" => "Hinweise",

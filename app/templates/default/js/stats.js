@@ -63,5 +63,49 @@ $(function () {
         }]
     });
   }
-  
+
+   var timeChart=$('#time');
+   if (timeChart.length>0) {
+     timeChart.highcharts({
+          chart: {
+              type: 'spline'
+          },
+          title: {
+              text: 'Auswertung des Abstimmungszeitraums'
+          },
+          xAxis: {
+              type: 'datetime',
+              dateTimeLabelFormats: { // don't display the dummy year
+                  month: '%e. %b',
+                  year: '%b'
+              },
+              title: {
+                  text: 'Datum'
+              }
+          },
+          yAxis: {
+              title: {
+                  text: 'Anzahl'
+              },
+              min: 0
+          },
+          tooltip: {
+              headerFormat: '<b>{series.name}</b><br>',
+              pointFormat: '{point.x:%e. %b}: {point.y}'
+          },
+
+          plotOptions: {
+              spline: {
+                  marker: {
+                      enabled: true
+                  }
+              }
+          },
+
+          series: [{
+              name: 'Stimmen',
+              data: timeseries
+          }]
+      });
+    }
 });

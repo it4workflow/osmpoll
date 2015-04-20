@@ -46,6 +46,7 @@ class Poll extends \core\controller{
     $data['question'] = $poll;
     $data['donut'] = $this->_poll->getDonut($id);
     $data['stacked'] = $this->_poll->getStacked($id);
+    $data['timeseries'] = $this->_poll->getTimeSeries($id);
     $data['comments'] = $this->_comment->getComments($id);
         
 		View::rendertemplate('header', $data);
