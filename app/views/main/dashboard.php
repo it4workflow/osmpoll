@@ -49,11 +49,10 @@
     </div>
 
     <div id="todo" class="tab-pane">
-      
+      <?php if( count($data['todo']) > 0 ) { ?>
       <div class="panel panel-default">
         <div class="panel-body">
           <table id="todotable" class="table table-striped" cellspacing="0" width="100%">
-            <?php if( count($data['todo']) > 0 ) { ?>
             <thead>
               <tr>
                 <th><span class="glyphicon glyphicon-unchecked"></span> </th>
@@ -80,10 +79,10 @@
             </tr>
             <?php } ?>
             </tbody>
-           <?php } ?>
           </table>
         </div>
       </div>
+      <?php } ?>
     </div>
 
     <div id="closed" class="tab-pane">
