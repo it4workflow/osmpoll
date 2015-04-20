@@ -1,6 +1,9 @@
 <div class="container">
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#open"><?=core\language::show('open_polls','main', \helpers\session::get('language')) ?></a></li>
+    <?php if( count($data['todo']) > 0 ) { ?>
+      <li><a data-toggle="tab" href="#todo"><?=core\language::show('todo_polls','main', \helpers\session::get('language')) ?></a></li>
+    <?php } ?>
     <li><a data-toggle="tab" href="#closed"><?=core\language::show('closed_polls','main', \helpers\session::get('language')) ?></a></li>
   </ul>
 
@@ -43,6 +46,44 @@
         </div>
       </div>
       <?php } ?>
+    </div>
+
+    <div id="todo" class="tab-pane">
+      
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table id="todotable" class="table table-striped" cellspacing="0" width="100%">
+            <?php if( count($data['todo']) > 0 ) { ?>
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
+                <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('until','poll', \helpers\session::get('language')) ?></th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
+                <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
+                <th><?=core\language::show('until','poll', \helpers\session::get('language')) ?></th>
+              </tr>
+            </tfoot>
+            <tbody>
+            <?php foreach ($data['todo'] as $poll) {?>
+            <tr>
+              <td><span class="glyphicon glyphicon-<?=$poll->answered?'check':'unchecked';?>"></span></td>
+              <td><?=$poll->created_by?></td>
+              <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
+              <td><?=date_format(date_create($poll->enddate),'d.m.Y')?></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+           <?php } ?>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div id="closed" class="tab-pane">

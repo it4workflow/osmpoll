@@ -21,6 +21,10 @@ class Poll extends \core\model {
     return $this->_db->select('SELECT id, frage, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id WHERE enddate<NOW() GROUP BY fragen.id ORDER BY created DESC');
   }
 
+  public function getUnanswered($user_id){
+    return $this->_db->select('SELECT fragen.id, frage, created, created_by, startdate, enddate FROM fragen LEFT JOIN answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() AND answered.frage_id IS NULL ORDER BY created', array(':user_id'=>$user_id));
+  }
+
   public function getAnswers($id){
     return $this->_db->select('SELECT id, antwort, description FROM '.PREFIX.'antworten WHERE frage_id = :id AND id>0 ORDER BY id', array(':id' => $id));
   }
