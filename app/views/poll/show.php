@@ -94,7 +94,7 @@
           <div class="panel-body">
           <?php foreach ($data['comments'] as $comment) { ?>
             <?=htmlentities($comment->created_by) ?> - <?=date_format(date_create($comment->created),'d. F Y H:i')?></strong>
-            <pre><?=htmlentities($comment->comment) ?></pre>
+            <div class="well well-sm"><?=nl2br(htmlentities($comment->comment)) ?></div>
             <hr>
           <?php } ?>
           
