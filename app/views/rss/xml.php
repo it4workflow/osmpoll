@@ -25,6 +25,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'
     <item>
       <title><?=htmlspecialchars($poll['poll']->frage, ENT_COMPAT|ENT_XML1) ?></title>
       <description>
+        <?=htmlspecialchars($poll['poll']->description, ENT_COMPAT|ENT_XML1) ?>
         &lt;ul&gt;
         <?php foreach ($poll['answers'] as $answer ) {
           echo htmlspecialchars('<li><strong>'.$answer->antwort.'</strong> '.$answer->description.'</li>', ENT_COMPAT|ENT_XML1);
