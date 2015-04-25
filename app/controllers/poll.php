@@ -128,6 +128,7 @@ class Poll extends \core\controller{
       );
       $where = array ('id' => $id);
       $this->_poll->startPoll($values, $where);
+      $this->_comment->inactivateComments($id);
     }
     
     \helpers\url::redirect('');
