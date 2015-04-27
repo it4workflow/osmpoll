@@ -23,15 +23,15 @@ class OAuth extends \core\controller{
     $this->config = $config;
 
     $store = OAuthStore::instance("MySQL", $this->config );
-    $servers = $store->listServers(null, session_id());
+    $servers = $store->listServers(null, base_convert(session_id(),16,10));
     if(sizeof($servers)<1){
-      $store->updateServer($this->config, session_id());
+      $store->updateServer($this->config, base_convert(session_id(),16,10));
     }
 
 	}
 
 	public function login() {
-    $request_token_info = OAuthRequester::requestRequestToken($this->config['consumer_key'], session_id());
+    $request_token_info = OAuthRequester::requestRequestToken($this->config['consumer_key'], base_convert(session_id(),16,10));
 		header('Location: '.$this->config['authorize_uri']."?oauth_token=".$request_token_info['token']);
     exit;
 	}
@@ -40,7 +40,7 @@ class OAuth extends \core\controller{
     try {
         $params = array();
         $user_details_request = new OAuthRequester($this->config['server_uri'], 'GET', $params);
-        $user_details = $user_details_request->doRequest(session_id());
+        $user_details = $user_details_request->doRequest(base_convert(session_id(),16,10));
 
         $xml = simplexml_load_string($user_details['body']);
         session::set('osm_user_id',strval($xml->user['id']));
@@ -64,7 +64,7 @@ class OAuth extends \core\controller{
   public function callback() {
     if(isset($_GET['oauth_token'])) {
       try {
-        OAuthRequester::requestAccessToken($this->config['consumer_key'], $_GET['oauth_token'], session_id());
+        OAuthRequester::requestAccessToken($this->config['consumer_key'], $_GET['oauth_token'], base_convert(session_id(),16,10));
         $this->getUserDetails();
         $redirect=session::get('referer');
         \helpers\url::redirect($redirect);
