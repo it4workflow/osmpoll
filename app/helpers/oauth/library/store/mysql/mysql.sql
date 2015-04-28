@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS oauth_log (
     olg_ost_token           varchar(64) binary,
     olg_ocr_consumer_key    varchar(64) binary,
     olg_oct_token           varchar(64) binary,
-    olg_usa_id_ref          int(11),
+    olg_usa_id_ref          varchar(32) binary,
     olg_received            text not null,
     olg_sent                text not null,
     olg_base_string         text not null,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS oauth_log (
 
 CREATE TABLE IF NOT EXISTS oauth_consumer_registry (
     ocr_id                  int(11) not null auto_increment,
-    ocr_usa_id_ref          int(11),
+    ocr_usa_id_ref          varchar(32) binary,
     ocr_consumer_key        varchar(128) binary not null,
     ocr_consumer_secret     varchar(128) binary not null,
     ocr_signature_methods   varchar(255) not null default 'HMAC-SHA1,PLAINTEXT',
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS oauth_consumer_registry (
 CREATE TABLE IF NOT EXISTS oauth_consumer_token (
     oct_id                  int(11) not null auto_increment,
     oct_ocr_id_ref          int(11) not null,
-    oct_usa_id_ref          int(11) not null,
+    oct_usa_id_ref          varchar(32) binary not null,
     oct_name                varchar(64) binary not null default '',
     oct_token               varchar(64) binary not null,
     oct_token_secret        varchar(64) binary not null,
@@ -154,9 +154,10 @@ CREATE TABLE IF NOT EXISTS oauth_consumer_token (
 # Table holding consumer key/secret combos an user issued to consumers. 
 # Used for verification of incoming requests.
 
+/*
 CREATE TABLE IF NOT EXISTS oauth_server_registry (
     osr_id                      int(11) not null auto_increment,
-    osr_usa_id_ref              int(11),
+    osr_usa_id_ref              varchar(32) binary,
     osr_consumer_key            varchar(64) binary not null,
     osr_consumer_secret         varchar(64) binary not null,
     osr_enabled                 tinyint(1) not null default '1',
@@ -207,7 +208,7 @@ CREATE TABLE IF NOT EXISTS oauth_server_nonce (
 CREATE TABLE IF NOT EXISTS oauth_server_token (
     ost_id                  int(11) not null auto_increment,
     ost_osr_id_ref          int(11) not null,
-    ost_usa_id_ref          int(11) not null,
+    ost_usa_id_ref          varchar(32) binary not null,
     ost_token               varchar(64) binary not null,
     ost_token_secret        varchar(64) binary not null,
     ost_token_type          enum('request','access'),
@@ -232,5 +233,5 @@ CREATE TABLE IF NOT EXISTS oauth_server_token (
 #       on delete cascade           
 ) engine=InnoDB default charset=utf8;
 
-
+*/
 

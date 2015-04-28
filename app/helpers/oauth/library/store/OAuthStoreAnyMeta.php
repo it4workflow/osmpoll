@@ -82,7 +82,7 @@ class OAuthStoreAnymeta extends OAuthStoreMySQL
 		$args  = array();
 		if (empty($options))
 		{
-			$where[] = 'olg_usa_id_ref = %d';
+			$where[] = 'olg_usa_id_ref = \'%s\'';
 			$args[]  = $user_id;
 		}
 		else
@@ -104,7 +104,7 @@ class OAuthStoreAnymeta extends OAuthStoreMySQL
 				}
 			}
 			
-			$where[] = '(olg_usa_id_ref IS NULL OR olg_usa_id_ref = %d)';
+			$where[] = '(olg_usa_id_ref IS NULL OR olg_usa_id_ref = \'%s\')';
 			$args[]  = $user_id;
 		}
 

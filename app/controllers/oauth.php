@@ -4,6 +4,7 @@ require_once(__DIR__.'/../helpers/oauth/library/OAuthStore.php');
 require_once(__DIR__.'/../helpers/oauth/library/OAuthRequester.php');
 use OAuthStore,
     OAuthRequester,
+    OAuthException2,
     \helpers\session,
     \helpers\url;
 
@@ -54,10 +55,15 @@ class OAuth extends \core\controller{
           }
         }
         session::set('logged_in', true);
-    } catch(OAuthException $E) {
-        echo("<pre>Exception:\n");
-        var_dump($E);
-        echo '</pre>';
+    } catch(OAuthException2 $E) {
+        if ($E->getCode()==401) {
+            $main = new \controllers\main();
+            $main->logout();
+        } else {
+            echo("<pre>Exception:\n");
+            var_dump($E);
+            echo '</pre>';
+        }
     }
   }
 

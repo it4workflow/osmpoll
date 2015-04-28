@@ -114,7 +114,7 @@ class OAuthRequester extends OAuthRequestSigner
 		$result = $this->curl_parse($text);	
 		if ($result['code'] >= 400)
 		{
-			throw new OAuthException2('Request failed with code ' . $result['code'] . ': ' . $result['body']);
+			throw new OAuthException2('Request failed with code ' . $result['code'] . ': ' . $result['body'], intval($result['code']));
 		}
 
 		// Record the token time to live for this server access token, immediate delete iff ttl <= 0
