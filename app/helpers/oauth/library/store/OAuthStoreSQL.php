@@ -210,7 +210,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						JOIN oauth_consumer_token ON oct_ocr_id_ref = ocr_id
 					WHERE ocr_server_uri_host = \'%s\'
 					  AND ocr_server_uri_path = LEFT(\'%s\', LENGTH(ocr_server_uri_path))
-					  AND (ocr_usa_id_ref = \'%d\' OR ocr_usa_id_ref IS NULL)
+					  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 					  AND oct_token_type      = \'access\'
 					  AND oct_name			  = \'%s\'
 					  AND oct_token_ttl       >= NOW()
@@ -265,7 +265,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 					WHERE ocr_consumer_key = \'%s\'
 					  AND oct_token_type   = \'%s\'
 					  AND oct_token        = \'%s\'
-					  AND oct_usa_id_ref   = %d
+					  AND oct_usa_id_ref   = \'%s\'
 					  AND oct_token_ttl    >= NOW()
 					', $consumer_key, $token_type, $token, $user_id
 					);
@@ -326,7 +326,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						SELECT ocr_id
 						FROM oauth_consumer_registry
 						WHERE ocr_consumer_key = \'%s\'
-						AND ocr_usa_id_ref = %d
+						AND ocr_usa_id_ref = \'%s\'
 						AND ocr_server_uri = \'%s\'
 						', $consumer_key, $user_id, $options['server_uri']);
 		}
@@ -336,7 +336,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						SELECT ocr_id
 						FROM oauth_consumer_registry
 						WHERE ocr_consumer_key = \'%s\'
-						AND ocr_usa_id_ref = %d
+						AND ocr_usa_id_ref = \'%s\'
 						', $consumer_key, $user_id);
 		}
 					
@@ -359,7 +359,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$this->query('
 					DELETE FROM oauth_consumer_token
 					WHERE oct_ocr_id_ref = %d
-					  AND oct_usa_id_ref = %d
+					  AND oct_usa_id_ref = \'%s\'
 					  AND oct_token_type = LOWER(\'%s\')
 					  AND oct_name       = \'%s\'
 					',
@@ -372,7 +372,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$this->query('
 					INSERT IGNORE INTO oauth_consumer_token
 					SET oct_ocr_id_ref	= %d,
-						oct_usa_id_ref  = %d,
+						oct_usa_id_ref  = \'%s\',
 						oct_name		= \'%s\',
 						oct_token		= \'%s\',
 						oct_token_secret= \'%s\',
@@ -408,7 +408,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 			$this->query('
 					DELETE FROM oauth_consumer_registry
 					WHERE ocr_consumer_key = \'%s\'
-					  AND (ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL)
+					  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 					', $consumer_key, $user_id);
 		}
 		else
@@ -416,7 +416,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 			$this->query('
 					DELETE FROM oauth_consumer_registry
 					WHERE ocr_consumer_key = \'%s\'
-					  AND ocr_usa_id_ref   = %d
+					  AND ocr_usa_id_ref   = \'%s\'
 					', $consumer_key, $user_id);
 		}
 	}
@@ -445,7 +445,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						ocr_access_token_uri	as access_token_uri
 				FROM oauth_consumer_registry
 				WHERE ocr_consumer_key = \'%s\'
-				  AND (ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL)
+				  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 				',	$consumer_key, $user_id);
 		
 		if (empty($r))
@@ -502,7 +502,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 					FROM oauth_consumer_registry
 					WHERE ocr_server_uri_host = \'%s\'
 					  AND ocr_server_uri_path = LEFT(\'%s\', LENGTH(ocr_server_uri_path))
-					  AND (ocr_usa_id_ref = \'%d\' OR ocr_usa_id_ref IS NULL)
+					  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 					ORDER BY ocr_usa_id_ref DESC, consumer_secret DESC, LENGTH(ocr_server_uri_path) DESC
 					LIMIT 0,1
 					', $host, $path, $user_id
@@ -543,7 +543,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 					FROM oauth_consumer_registry
 							JOIN oauth_consumer_token
 							ON oct_ocr_id_ref = ocr_id
-					WHERE oct_usa_id_ref = %d
+					WHERE oct_usa_id_ref = \'%s\'
 					  AND oct_token_type = \'access\'
 					  AND oct_token_ttl  >= NOW()
 					ORDER BY ocr_server_uri_host, ocr_server_uri_path
@@ -603,7 +603,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 							JOIN oauth_consumer_token
 							ON oct_ocr_id_ref = ocr_id
 					WHERE ocr_consumer_key = \'%s\'
-					  AND oct_usa_id_ref   = %d
+					  AND oct_usa_id_ref   = \'%s\'
 					  AND oct_token_type   = \'access\'
 					  AND oct_token        = \'%s\'
 					  AND oct_token_ttl    >= NOW()
@@ -647,7 +647,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						ON oct_ocr_id_ref = ocr_id
 				WHERE ocr_consumer_key	= \'%s\'
 				  AND oct_token			= \'%s\'
-				  AND oct_usa_id_ref	= %d
+				  AND oct_usa_id_ref	= \'%s\'
 				', $consumer_key, $token, $user_id);
 		}
 	}
@@ -701,7 +701,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						  	 OR ocr_server_uri like \'%%%s%%\'
 						  	 OR ocr_server_uri_host like \'%%%s%%\'
 						  	 OR ocr_server_uri_path like \'%%%s%%\')
-						 AND (ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL)
+						 AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 					';
 			
 			$args[] = $q;
@@ -712,7 +712,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		}
 		else
 		{
-			$where  = ' WHERE ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL';
+			$where  = ' WHERE ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL';
 			$args[] = $user_id;
 		}
 
@@ -764,7 +764,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						FROM oauth_consumer_registry
 						WHERE ocr_consumer_key = \'%s\'
 						  AND ocr_id <> %d
-						  AND (ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL)
+						  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 						', $server['consumer_key'], $server['id'], $user_id);
 		}
 		else
@@ -773,7 +773,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						SELECT ocr_id
 						FROM oauth_consumer_registry
 						WHERE ocr_consumer_key = \'%s\'
-						  AND (ocr_usa_id_ref = %d OR ocr_usa_id_ref IS NULL)
+						  AND (ocr_usa_id_ref = \'%s\' OR ocr_usa_id_ref IS NULL)
 						', $server['consumer_key'], $user_id);
 		}
 
@@ -865,7 +865,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 			if (empty($update_user))
 			{
 				// Per default the user owning the key is the user registering the key
-				$update_user =  ', ocr_usa_id_ref = '.intval($user_id);
+				$update_user =  ', ocr_usa_id_ref = \''.$user_id.'\'';
 			}
 
 			$this->query('
@@ -967,7 +967,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 					{
 						$this->query('
 							UPDATE oauth_server_registry
-							SET osr_usa_id_ref = %d
+							SET osr_usa_id_ref = \'%s\'
 							WHERE osr_id = %d
 							', $consumer['user_id'], $consumer['id']);	
 					}
@@ -1083,7 +1083,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 			$this->query('
 					DELETE FROM oauth_server_registry
 					WHERE osr_consumer_key = \'%s\'
-					  AND (osr_usa_id_ref = %d OR osr_usa_id_ref IS NULL)
+					  AND (osr_usa_id_ref = \'%s\' OR osr_usa_id_ref IS NULL)
 					', $consumer_key, $user_id);
 		}
 		else
@@ -1091,7 +1091,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 			$this->query('
 					DELETE FROM oauth_server_registry
 					WHERE osr_consumer_key = \'%s\'
-					  AND osr_usa_id_ref   = %d
+					  AND osr_usa_id_ref   = \'%s\'
 					', $consumer_key, $user_id);
 		}
 	}	
@@ -1222,7 +1222,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$this->query('
 				INSERT INTO oauth_server_token
 				SET ost_osr_id_ref		= %d,
-					ost_usa_id_ref		= 1,
+					ost_usa_id_ref		= \'1\',
 					ost_token			= \'%s\',
 					ost_token_secret	= \'%s\',
 					ost_token_type		= \'request\',
@@ -1303,7 +1303,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$this->query('
 					UPDATE oauth_server_token
 					SET ost_authorized    = 1,
-						ost_usa_id_ref    = %d,
+						ost_usa_id_ref    = \'%s\',
 						ost_timestamp     = NOW(),
 						ost_referrer_host = \'%s\',
 						ost_verifier      = \'%s\'
@@ -1437,7 +1437,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						ON ost_osr_id_ref = osr_id
 				WHERE ost_token_type = \'access\'
 				  AND ost_token      = \'%s\'
-				  AND ost_usa_id_ref = %d
+				  AND ost_usa_id_ref = \'%s\'
 				  AND ost_token_ttl  >= NOW()
 				', $token, $user_id);
 		
@@ -1472,7 +1472,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						DELETE FROM oauth_server_token
 						WHERE ost_token 	 = \'%s\'
 						  AND ost_token_type = \'access\'
-						  AND ost_usa_id_ref = %d
+						  AND ost_usa_id_ref = \'%s\'
 						', $token, $user_id);
 		}
 	}
@@ -1529,7 +1529,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 						osr_requester_email		as requester_email,
 						osr_callback_uri		as callback_uri
 				FROM oauth_server_registry
-				WHERE (osr_usa_id_ref = %d OR osr_usa_id_ref IS NULL)
+				WHERE (osr_usa_id_ref = \'%s\' OR osr_usa_id_ref IS NULL)
 				ORDER BY osr_application_title
 				', $user_id);
 		return $rs;
@@ -1584,7 +1584,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 				FROM oauth_server_registry
 					JOIN oauth_server_token
 					ON ost_osr_id_ref = osr_id
-				WHERE ost_usa_id_ref = %d
+				WHERE ost_usa_id_ref = \'%s\'
 				  AND ost_token_type = \'access\'
 				  AND ost_token_ttl  >= NOW()
 				ORDER BY osr_application_title
@@ -1679,7 +1679,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$ps[] = "olg_sent   	= '%s'";						$args[] = $this->makeUTF8($sent);
 		$ps[] = "olg_base_string= '%s'";						$args[] = $base_string;
 		$ps[] = "olg_notes   	= '%s'";						$args[] = $this->makeUTF8($notes);
-		$ps[] = "olg_usa_id_ref = NULLIF(%d,0)";				$args[] = $user_id;
+		$ps[] = "olg_usa_id_ref = NULLIF(\'%s\',0)";				$args[] = $user_id;
 		$ps[] = "olg_remote_ip  = IFNULL(INET_ATON('%s'),0)";	$args[] = $remote_ip;
 
 		$this->query('INSERT INTO oauth_log SET '.implode(',', $ps), $args);
@@ -1700,7 +1700,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 		$args  = array();
 		if (empty($options))
 		{
-			$where[] = 'olg_usa_id_ref = %d';
+			$where[] = 'olg_usa_id_ref = \'%s\'';
 			$args[]  = $user_id;
 		}
 		else
@@ -1722,7 +1722,7 @@ abstract class OAuthStoreSQL extends OAuthStoreAbstract
 				}
 			}
 			
-			$where[] = '(olg_usa_id_ref IS NULL OR olg_usa_id_ref = %d)';
+			$where[] = '(olg_usa_id_ref IS NULL OR olg_usa_id_ref = \'%s\')';
 			$args[]  = $user_id;
 		}
 

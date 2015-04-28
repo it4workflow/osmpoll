@@ -19,6 +19,9 @@ class Main extends \core\controller{
 
 	public function index($message="") {
 
+    $oauth = new \controllers\oauth();
+    $oauth->updateUserDetails();
+    
     $data['todo'] = $this->_polls->getUnanswered(\helpers\session::get('osm_user_id'));
     $data['draft'] = $this->_polls->getPollsDraft();
     $data['open'] = $this->_polls->getPollsOpen(\helpers\session::get('osm_user_id'));
@@ -45,6 +48,7 @@ class Main extends \core\controller{
   }
 
   public function logout() {
+    \helpers\session::regenerate();
     \helpers\session::destroy();
     \helpers\url::redirect('');
   }

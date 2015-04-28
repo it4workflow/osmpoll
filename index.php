@@ -61,7 +61,8 @@ new \core\config();
 
 //create alias for Router
 use \core\router,
-    \helpers\session;
+    \helpers\session,
+    DateTime;
 
 //set language to session
 if(!session::get('language')){
@@ -79,6 +80,9 @@ if(!session::get('language')){
   }
 }
 
+//set last visit timestamp to session
+session::set('lastvisit', new DateTime("now"));
+
 //define routes
 if(session::get('logged_in')){
   Router::get('', '\controllers\main@index');
@@ -95,7 +99,7 @@ if(session::get('logged_in')){
 Router::get('/language/(:any)', '\controllers\main@language');
 Router::get('/impressum', '\controllers\main@impressum');
 Router::post('/email', '\controllers\main@emailMessage');
-Router::post('/oauth/login', '\controllers\oauth@login');
+Router::post('/oauth/login', '\controllers\oauth@authorize');
 Router::get('/oauth/callback', '\controllers\oauth@callback');
 Router::get('/rss', '\controllers\rss@feed');
 

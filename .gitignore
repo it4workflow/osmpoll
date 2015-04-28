@@ -2,4 +2,4 @@ app/core/config.php
 *.production
 .DS_Store
 osmpoll.geany
-/nbproject/*
+/nbproject/private
