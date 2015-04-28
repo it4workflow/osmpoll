@@ -20,7 +20,7 @@ class Main extends \core\controller{
 	public function index($message="") {
 
     $oauth = new \controllers\oauth();
-    $oauth->getUserDetails();
+    $oauth->updateUserDetails();
     
     $data['todo'] = $this->_polls->getUnanswered(\helpers\session::get('osm_user_id'));
     $data['draft'] = $this->_polls->getPollsDraft();
