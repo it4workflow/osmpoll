@@ -78,7 +78,7 @@ class OAuth extends \core\controller{
         }
         session::set('logged_in', true);
     } catch(OAuthException2 $E) {
-        if ($E->getCode()==401) {
+        if ($E->getCode()==401 || $E->getCode()==-1) {
             $main = new \controllers\main();
             $main->logout();
         } else {
@@ -102,7 +102,7 @@ class OAuth extends \core\controller{
           session::set('lastcheck', new DateTime('now'));
         }
     } catch(OAuthException2 $E) {
-        if ($E->getCode()==401) {
+        if ($E->getCode()==401 || $E->getCode()==-1) {
             $main = new \controllers\main();
             $main->logout();
         } else {

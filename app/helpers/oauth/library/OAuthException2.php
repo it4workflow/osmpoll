@@ -36,7 +36,7 @@ require_once dirname(__FILE__) . '/OAuthRequestLogger.php';
 
 class OAuthException2 extends Exception
 {
-	function __construct ( $message, $code = 200 )
+	function __construct ( $message, $code = -1 )
 	{
 		Exception::__construct($message, $code);
 		OAuthRequestLogger::addNote('OAuthException2: '.$message);
