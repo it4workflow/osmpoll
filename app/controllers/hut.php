@@ -23,6 +23,7 @@ class Hut extends \core\controller{
   public function show($hutId) {
 
     $data['hut'] = $this->_hut->getHut($hutId);
+    $data['images'] = $this->_hut->getHutImages($hutId);
     $tags = $this->_hut->getHutTagsOrderedByVoting($hutId);
     foreach($tags as $tag) {
       $tag->comments = $this->_hut->getHutTagComments($tag->id);
