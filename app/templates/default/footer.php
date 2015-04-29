@@ -20,7 +20,8 @@
     helpers\url::template_path() . 'js/dataTables.bootstrap.js',
     helpers\url::template_path() . 'js/highcharts.js',
     helpers\url::template_path() . 'js/dataTables.js',
-    helpers\url::template_path() . 'js/stats.js'
+    helpers\url::template_path() . 'js/stats.js',
+    helpers\url::template_path() . 'js/custom.js'
   ))
 ?>    
 </body>

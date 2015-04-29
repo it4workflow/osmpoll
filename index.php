@@ -95,6 +95,10 @@ if(session::get('logged_in')){
   Router::get ('/hut',                  '\controllers\hut@overview');
   Router::get ('/hut/(:num)',           '\controllers\hut@show');
   Router::post('/hut/comment/(:num)',   '\controllers\hut@addComment');
+  Router::get('/hut/(:num)/vote/up/(:num)', '\controllers\hut@voteUp');
+  Router::get('/hut/(:num)/vote/down/(:num)', '\controllers\hut@voteDown');
+  Router::get('/hut/(:num)/delete/(:num)', '\controllers\hut@deleteVote');
+  Router::post('/hut/(:num)/tag/add', '\controllers\hut@createTag');
 } else {
   Router::get('', '\controllers\welcome@welcome');
 }

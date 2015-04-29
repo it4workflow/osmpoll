@@ -34,7 +34,7 @@ class Hut extends \core\controller{
     
 		View::rendertemplate('header');
 		View::render('hut/hut', $data);
-    View::render('hut/tags', $data);
+    
     View::render('hut/comments', $data);
 		View::rendertemplate('footer');
 
@@ -49,6 +49,54 @@ class Hut extends \core\controller{
       );
     $this->_hut->createHutComment($values);
     \helpers\url::redirect('hut/'.$hutId);
+  }
+  
+  public function createTag($hutId) {
+    if(isset($_REQUEST['tagkey']) && !empty($_REQUEST['tagkey']) && isset($_REQUEST['tagvalue']) && !empty($_REQUEST['tagvalue'])) {
+      $values = array (
+        'hut_id' => $hutId,
+        'tagkey' => $_REQUEST['tagkey'],
+        'tagvalue' => $_REQUEST['tagvalue'],
+        'created_by' => \helpers\session::get('osm_user_display_name'),
+        'created_osmid' => \helpers\session::get('osm_user_id')
+      );
+      $this->_hut->createHutTag($values);
+    }
+    \helpers\url::redirect('hut/'.$hutId);
+  }
+  
+  public function voteUp($hutId, $hutTagsId) {
+    $this->vote($hutId, $hutTagsId, 1);
+  }
+  
+  public function voteDown($hutId, $hutTagsId) {
+    $this->vote($hutId, $hutTagsId, -1);
+  }  
+  
+  public function deleteVote($hutId, $hutTagsId) {
+    $where = array (
+      'hut_tags_id' => $hutTagsId,
+      'created_osmid' => \helpers\session::get('osm_user_id')
+    );
+    $this->_hut->deleteHutTagVoting($where);
+    \helpers\url::redirect('hut/'.$hutId);    
+  }
+  
+  private function vote($hutId, $hutTagsId, $vote) {
+    $where = array (
+      'hut_tags_id' => $hutTagsId,
+      'created_osmid' => \helpers\session::get('osm_user_id')
+    );
+    $this->_hut->deleteHutTagVoting($where);
+    
+    $values = array(
+      'hut_tags_id' => $hutTagsId,
+      'voting' => $vote,
+      'created_by' => \helpers\session::get('osm_user_display_name'),
+      'created_osmid' => \helpers\session::get('osm_user_id')
+    );
+    $this->_hut->createHutTagVoting($values);
+    \helpers\url::redirect('hut/'.$hutId);    
   }
   
 }
