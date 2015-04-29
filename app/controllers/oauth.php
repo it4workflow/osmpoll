@@ -69,8 +69,9 @@ class OAuth extends \core\controller{
         session::set('osm_user_changesets', intval($xml->user->changesets['count']));
         session::set('osm_user_account_created', strval($xml->user['account_created']));
         session::set('lastcheck', new DateTime('now'));
+        $availableLanguages = unserialize(LANGUAGES);
         foreach($xml->user->languages->lang as $isocode){
-          if(preg_match('/^[a-z]{2}$/',$isocode)) {
+          if(preg_match('/^[a-z]{2}$/',strval($isocode)) && array_key_exists(strval($isocode), $availableLanguages)) {
             session::set('language', strval($isocode));
             break;
           }
