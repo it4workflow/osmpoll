@@ -61,8 +61,7 @@ new \core\config();
 
 //create alias for Router
 use \core\router,
-    \helpers\session,
-    DateTime;
+    \helpers\session;
 
 //set language to session
 if(!session::get('language')){
@@ -93,6 +92,9 @@ if(session::get('logged_in')){
   Router::post('/poll/(:num)', '\controllers\poll@answer');
   Router::get('logout', '\controllers\main@logout');
   Router::post('/poll/(:num)/comment', '\controllers\comment@poll');
+  Router::get ('/hut',                  '\controllers\hut@overview');
+  Router::get ('/hut/(:num)',           '\controllers\hut@show');
+  Router::post('/hut/comment/(:num)',   '\controllers\hut@addComment');
 } else {
   Router::get('', '\controllers\welcome@welcome');
 }
