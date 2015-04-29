@@ -23,7 +23,11 @@ class Hut extends \core\controller{
   public function show($hutId) {
 
     $data['hut'] = $this->_hut->getHut($hutId);
-    $data['tags'] = $this->_hut->getHutTagsOrderedByVoting($hutId);
+    $tags = $this->_hut->getHutTagsOrderedByVoting($hutId);
+    foreach($tags as $tag) {
+      $tag->comments = $this->_hut->getHutTagComments($tag->id);
+    }
+    $data['tags'] = $tags;
     $votes = $this->_hut->getHutTagVotesByUser($hutId, \helpers\session::get('osm_user_id'));
     $uservotes = array();
     foreach($votes as $vote) {
@@ -34,7 +38,6 @@ class Hut extends \core\controller{
     
 		View::rendertemplate('header');
 		View::render('hut/hut', $data);
-    
     View::render('hut/comments', $data);
 		View::rendertemplate('footer');
 
@@ -63,6 +66,18 @@ class Hut extends \core\controller{
       $this->_hut->createHutTag($values);
     }
     \helpers\url::redirect('hut/'.$hutId);
+  }
+  
+  public function addTagComment($hutId, $hutTagsId) {
+    $values = array(
+      'hut_tags_id' => $hutTagsId,
+      'comment' => $_REQUEST['tagcomment'], 
+      'created_by' => \helpers\session::get('osm_user_display_name'),
+      'created_osmid' => \helpers\session::get('osm_user_id')
+      );
+    $this->_hut->createHutTagComment($values);
+    \helpers\url::redirect('hut/'.$hutId);
+    
   }
   
   public function voteUp($hutId, $hutTagsId) {

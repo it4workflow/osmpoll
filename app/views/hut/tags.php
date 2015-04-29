@@ -1,4 +1,18 @@
 
+<form action="<?=DIR.'hut/'.$data['hut'][0]->id.'/tag/add'; ?>" method="post" name="huttag" role="form">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-3">
+            <input class="form-control" type="text" name="tagkey" placeholder="key"/>
+        </div>
+        <div class="col-sm-1">
+            <div class="text-center">=</div>
+        </div>
+        <div class="col-sm-3">
+            <input class="form-control" type="text" name="tagvalue" placeholder="value" />
+        </div>
+        <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
+  </form>
+<hr>
   <?php 
   foreach($data['tags'] as $tag) { ?>
     <div class="row" style="font-size: 1.5em; margin-bottom: 0.25em;">
@@ -16,21 +30,32 @@
       <div class="col-sm-2">
           <span class="glyphicon glyphicon-user" title="<?=$tag->created_by?>" data-toggle="tooltip" data-placement="top"></span>
           <span class="glyphicon glyphicon-time" title="<?=$tag->created?>" data-toggle="tooltip" data-placement="top"></span>
-          <span class="glyphicon glyphicon-comment"></span>
+          <span id="tagcommentsbtn_<?=$tag->id?>" data-toggle="tagcomment" data-id="<?=$tag->id?>" class="glyphicon glyphicon-comment">#<?=sizeof($tag->comments)?></span>
       </div>
-    </div>
-  <?php } ?>
-    <hr>
-    <form action="<?=DIR.'hut/'.$data['hut'][0]->id.'/tag/add'; ?>" method="post" name="huttag" role="form">
+    </div> 
+    <div id="tagcomments_<?=$tag->id?>" style="display: none;">
+    <?php foreach ($tag->comments as $comment) { ?>
+    <div class="row">
         <div class="col-sm-2">&nbsp;</div>
-        <div class="col-sm-3">
-            <input class="form-control" type="text" name="tagkey" placeholder="key"/>
+        <div class="col-sm-6">
+            <blockquote><?=nl2br(htmlentities($comment->comment));?><footer><?=htmlentities($comment->created_by);?>, <?=htmlentities($comment->created);?></footer></blockquote>  
         </div>
-        <div class="col-sm-1">
-            <div class="text-center">=</div>
+    </div>
+    <?php } ?>
+    <div class="row">
+              <form action="<?=DIR.'hut/'.$tag->hut_id.'/tag/'.$tag->id.'/comment/add'; ?>" method="post" name="comment" role="form">
+        <div class="col-sm-2">&nbsp;</div>
+            <div class="col-sm-6">
+                <textarea name="tagcomment" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
+              
+            </form>
         </div>
-        <div class="col-sm-3">
-            <input class="form-control" type="text" name="tagvalue" placeholder="value" />
-        </div>
-        <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
-  </form>
+    </div>
+    </div>        
+  <?php } ?>
+    
+    
+    

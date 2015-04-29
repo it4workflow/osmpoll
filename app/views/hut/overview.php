@@ -1,5 +1,5 @@
 <div class="container">
-  <h3><a href="<?=DIR.'hut';?>">Wie taggt man ...</a></h3>
+    <h3><a href="<?=DIR.'hut';?>">Wie taggt man ...</a> <span class="label label-warning">alpha</span></h3>
   <hr>
   <?php foreach($data['overview'] as $hut) { ?>
   <div class="row">
