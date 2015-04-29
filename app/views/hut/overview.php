@@ -1,4 +1,6 @@
 <div class="container">
+  <h3><a href="<?=DIR.'hut';?>">Wie taggt man ...</a></h3>
+  <hr>
   <?php foreach($data['overview'] as $hut) { ?>
   <div class="row">
     <div class="col-sm-8">

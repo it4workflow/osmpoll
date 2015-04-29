@@ -22,13 +22,14 @@
   <?php } ?>
     <hr>
     <form action="<?=DIR.'hut/'.$data['hut'][0]->id.'/tag/add'; ?>" method="post" name="huttag" role="form">
-        <div class="col-sm-4">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-3">
             <input class="form-control" type="text" name="tagkey" placeholder="key"/>
         </div>
         <div class="col-sm-1">
             <div class="text-center">=</div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <input class="form-control" type="text" name="tagvalue" placeholder="value" />
         </div>
         <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
