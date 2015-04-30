@@ -27,6 +27,14 @@ class Hut extends \core\controller{
     $tags = $this->_hut->getHutTagsOrderedByVoting($hutId);
     foreach($tags as $tag) {
       $tag->comments = $this->_hut->getHutTagComments($tag->id);
+      $stats = $this->_hut->getHutTagVotesStat($tag->id);
+      foreach ($stats as $stat) {
+        if($stat->mode=='up'){
+          $tag->up = $stat->sum;
+        } else if ($stat->mode=='down') {
+          $tag->down = $stat->sum;
+        }
+      }
     }
     $data['tags'] = $tags;
     $votes = $this->_hut->getHutTagVotesByUser($hutId, \helpers\session::get('osm_user_id'));

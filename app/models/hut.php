@@ -53,6 +53,10 @@ class Hut extends \core\model {
     return $this->_db->select('SELECT vote.hut_tags_id, voting FROM '.PREFIX.'hut_tags tags JOIN '.PREFIX.'hut_tags_voting vote ON vote.hut_tags_id=tags.id AND tags.hut_id = :hutId WHERE vote.created_osmid = :createdOsmId', array(':hutId' => $hutId, ':createdOsmId' => $createdOsmId));
   }
   
+  public function getHutTagVotesStat($hutTagId) {
+    return $this->_db->select('select "up" as mode, ifnull(sum(voting),0) as sum from hut_tags_voting where hut_tags_id=:hutTagId and voting>0 union select "down" as mode, ifnull(sum(voting),0) from hut_tags_voting where hut_tags_id=:hutTagId and voting<0', array(":hutTagId" => $hutTagId));
+  }
+  
   public function getHutTagComments($hutTagId) {
     return $this->_db->select('SELECT * FROM '.PREFIX.'hut_tags_comment WHERE hut_tags_id = :hutTagId ORDER BY created', array(':hutTagId' => $hutTagId));
   }
