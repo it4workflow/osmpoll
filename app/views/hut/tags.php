@@ -18,19 +18,19 @@
     <div class="row" style="font-size: 1.5em; margin-bottom: 0.25em;">
       <div class="col-sm-2">
           <div class="">
-            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['votes'][$tag->id]==1?'/delete/':'/vote/up/').$tag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['votes'][$tag->id]==1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['votes'][$tag->id]==1?'text-success':'text-muted'?>"></span></a>
+            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==1?'/delete/':'/vote/up/').$tag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['uservotes'][$tag->id]==1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['uservotes'][$tag->id]==1?'text-success':'text-muted'?>"></span></a>
             <span class="label <?php if ($tag->votes>0) echo 'label-success'; if ($tag->votes<0) echo 'label-danger'; if ($tag->votes==0) echo 'label-default';?>"><?=$tag->votes;?></span>
-            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['votes'][$tag->id]==-1?'/delete/':'/vote/down/').$tag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['votes'][$tag->id]==-1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['votes'][$tag->id]==-1?'text-danger':'text-muted'?>"></span></a>
+            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==-1?'/delete/':'/vote/down/').$tag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['uservotes'][$tag->id]==-1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['uservotes'][$tag->id]==-1?'text-danger':'text-muted'?>"></span></a>
           </div>
       </div>
       <div class="col-sm-8">
-          <a href="https://wiki.openstreetmap.org/wiki/Key:<?=$tag->tagkey;?>" data-toggle="tooltip" data-placement="left" title="goto wiki" target="_blank"><span class="label label-default"><?=$tag->tagkey;?></span></a> = 
-          <a href="https://wiki.openstreetmap.org/wiki/Tag:<?=$tag->tagkey;?>%3D<?=$tag->tagvalue;?>" data-toggle="tooltip" data-placement="right" title="goto wiki" target="_blank"><span class="label label-default"><?=$tag->tagvalue;?></span></a>
+          <a href="https://wiki.openstreetmap.org/wiki/Key:<?=$tag->tagkey;?>" data-toggle="tooltip" data-placement="left" title="goto wiki (key)" target="_blank"><span class="label label-default"><?=$tag->tagkey;?></span></a> = 
+          <a href="https://wiki.openstreetmap.org/wiki/Tag:<?=$tag->tagkey;?>%3D<?=$tag->tagvalue;?>" data-toggle="tooltip" data-placement="right" title="goto wiki (tag)" target="_blank"><span class="label label-default"><?=$tag->tagvalue;?></span></a>
       </div>
       <div class="col-sm-2">
           <span class="glyphicon glyphicon-user" title="<?=$tag->created_by?>" data-toggle="tooltip" data-placement="top"></span>
           <span class="glyphicon glyphicon-time" title="<?=$tag->created?>" data-toggle="tooltip" data-placement="top"></span>
-          <span id="tagcommentsbtn_<?=$tag->id?>" data-toggle="tagcomment" data-id="<?=$tag->id?>" class="glyphicon glyphicon-comment">#<?=sizeof($tag->comments)?></span>
+          <a href="#" data-toggle="tagcomment" data-id="<?=$tag->id?>"><?=sizeof($tag->comments)?>x <span class="glyphicon glyphicon-comment"></span></a>
       </div>
     </div> 
     <div id="tagcomments_<?=$tag->id?>" style="display: none;">

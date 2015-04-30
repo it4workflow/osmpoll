@@ -34,7 +34,7 @@ class Hut extends \core\controller{
     foreach($votes as $vote) {
       $uservotes[$vote->hut_tags_id] = $vote->voting;
     }
-    $data['votes'] = $uservotes;
+    $data['uservotes'] = $uservotes;
     $data['comments'] = $this->_hut->getHutComments($hutId);
     
 		View::rendertemplate('header');
@@ -45,13 +45,15 @@ class Hut extends \core\controller{
   }
 
   public function addComment($hutId) {
-    $values = array(
-      'hut_id' => $hutId,
-      'comment' => $_REQUEST['comment'], 
-      'created_by' => \helpers\session::get('osm_user_display_name'),
-      'created_osmid' => \helpers\session::get('osm_user_id')
-      );
-    $this->_hut->createHutComment($values);
+    if(isset($_REQUEST['comment']) && !empty($_REQUEST['comment'])) {
+      $values = array(
+        'hut_id' => $hutId,
+        'comment' => $_REQUEST['comment'], 
+        'created_by' => \helpers\session::get('osm_user_display_name'),
+        'created_osmid' => \helpers\session::get('osm_user_id')
+        );
+      $this->_hut->createHutComment($values);
+    }
     \helpers\url::redirect('hut/'.$hutId);
   }
   
@@ -70,13 +72,15 @@ class Hut extends \core\controller{
   }
   
   public function addTagComment($hutId, $hutTagsId) {
-    $values = array(
-      'hut_tags_id' => $hutTagsId,
-      'comment' => $_REQUEST['tagcomment'], 
-      'created_by' => \helpers\session::get('osm_user_display_name'),
-      'created_osmid' => \helpers\session::get('osm_user_id')
-      );
-    $this->_hut->createHutTagComment($values);
+    if(isset($_REQUEST['tagcomment']) && !empty($_REQUEST['tagcomment'])) {
+      $values = array(
+        'hut_tags_id' => $hutTagsId,
+        'comment' => $_REQUEST['tagcomment'], 
+        'created_by' => \helpers\session::get('osm_user_display_name'),
+        'created_osmid' => \helpers\session::get('osm_user_id')
+        );
+      $this->_hut->createHutTagComment($values);
+    }
     \helpers\url::redirect('hut/'.$hutId);
     
   }

@@ -19,8 +19,7 @@ class Hut extends \core\model {
   public function getHutImages($id) {
     return $this->_db->select('SELECT * FROM ' . PREFIX . 'hut_image WHERE hut_id = :hutId', array(':hutId' => $id));
   }
-
-
+  
   public function createHut($values) {
     $this->_db->insert(PREFIX.'hut',$values);
     return $this->_db->lastInsertId('id');
