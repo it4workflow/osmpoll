@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `osmpoll`.`hut_tags` (
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_hut_tags_1_idx` (`hut_id` ASC),
-  UNIQUE INDEX `tagkey_tagvalue_UNIQUE` (`tagkey` ASC, `tagvalue` ASC),
+  UNIQUE INDEX `tagkey_tagvalue_UNIQUE` (`hut_id` ASC, `tagkey` ASC, `tagvalue` ASC),
   CONSTRAINT `fk_hut_tags_1`
     FOREIGN KEY (`hut_id`)
     REFERENCES `osmpoll`.`hut` (`id`)
