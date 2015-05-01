@@ -1,6 +1,7 @@
 <?php namespace controllers;
 
-use core\view;
+use core\view,
+    PDOException;
 
 class Hut extends \core\controller{
 
@@ -74,7 +75,13 @@ class Hut extends \core\controller{
         'created_by' => \helpers\session::get('osm_user_display_name'),
         'created_osmid' => \helpers\session::get('osm_user_id')
       );
-      $this->_hut->createHutTag($values);
+      try{
+        $this->_hut->createHutTag($values);
+      } catch (PDOException $e) {
+        if($e->getCode()!=23000){
+          throw $e;
+        }
+      }
     }
     \helpers\url::redirect('hut/'.$hutId);
   }
