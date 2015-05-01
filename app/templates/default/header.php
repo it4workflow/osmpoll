@@ -25,6 +25,8 @@
 	?>
   
   <script type="text/javascript">var language="<?=\helpers\session::get('language'); ?>";</script>
+  
+  <script type="text/javascript">var statsLocalization=<?=\core\language::getJson('stats', \helpers\session::get('language'))?>;</script>
 </head>
 <body>
 

@@ -7,7 +7,7 @@ $(function () {
             type: 'bar'
         },
         title: {
-            text: 'Absolute Zahl pro Mappertyp'
+            text: statsLocalization.stacked_per_mappertype
         },
         xAxis: {
             categories: stackeddata.categories
@@ -39,10 +39,10 @@ $(function () {
             plotShadow: false
         },
         title: {
-            text: 'Auswertung pro Antwort'
+            text: statsLocalization.donut_per_answer
         },
         tooltip: {
-            pointFormat: '<b>{point.percentage:.1f}%</b> [{point.y} Stimme(n)]'
+            pointFormat: '<b>{point.percentage:.1f}%</b> [{point.y} '+statsLocalization.votes+']'
         },
         plotOptions: {
             pie: {
@@ -71,7 +71,7 @@ $(function () {
               type: 'spline'
           },
           title: {
-              text: 'Auswertung des Abstimmungszeitraums'
+              text: statsLocalization.time_per_period
           },
           xAxis: {
               type: 'datetime',
@@ -80,12 +80,12 @@ $(function () {
                   year: '%b'
               },
               title: {
-                  text: 'Datum'
+                  text: statsLocalization.time_date
               }
           },
           yAxis: {
               title: {
-                  text: 'Anzahl'
+                  text: statsLocalization.time_count
               },
               min: 0
           },
@@ -103,7 +103,7 @@ $(function () {
           },
 
           series: [{
-              name: 'Stimmen',
+              name: statsLocalization.votes,
               data: timeseries
           }]
       });

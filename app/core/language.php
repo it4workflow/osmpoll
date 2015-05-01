@@ -90,4 +90,27 @@ class Language {
 		}
 	}
 
+  public function getJson($name, $code = LANGUAGE_CODE) {
+		
+		// lang file
+		$file = "app/language/$code/$name.php";
+
+		// check if is readable
+		if(is_readable($file)){
+
+			// require file
+			$_array = include($file);
+
+		} else {
+
+			// display error
+			echo \core\error::display("Could not load language file '$code/$name.php'");
+			die;
+
+		}
+
+    return json_encode($_array);
+    
+	}
+  
 }
