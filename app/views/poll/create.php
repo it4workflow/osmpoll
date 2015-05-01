@@ -31,12 +31,15 @@
               <?php } ?>
               <div class="form-group"></div>   
               <div class="form-group">
-                <button type="submit" class="btn btn-default" name="save" ><?=core\language::show('btn_create','poll', \helpers\session::get('language')) ?></button>
-                <?=core\language::show('btn_create_hint','poll', \helpers\session::get('language')) ?>
+                  <button type="submit" class="btn btn-default col-sm-2" name="save" ><?=core\language::show('btn_create','poll', \helpers\session::get('language')) ?></button>
+                  <span class="col-sm-10"><?=core\language::show('btn_create_hint','poll', \helpers\session::get('language')) ?></span>
               </div>
+              <div class="form-group">&nbsp;</div>   
               <div class="form-group">
-                <button type="submit" class="btn btn-default" name="start" ><?=core\language::show('btn_start','poll', \helpers\session::get('language')) ?></button>
-                <?=core\language::show('btn_start_hint','poll', \helpers\session::get('language')) ?>
+
+                <button type="submit" class="btn btn-default col-sm-2" name="start" ><?=core\language::show('btn_start','poll', \helpers\session::get('language')) ?></button>
+                <span class="col-sm-10"><?=core\language::show('btn_start_hint','poll', \helpers\session::get('language')) ?></span>
+
               </div>
             </form>
               <?php if(isset($data['question']) && $data['question']->id > 0) { ?>
