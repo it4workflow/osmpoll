@@ -21,6 +21,10 @@ class Poll extends \core\model {
     return $this->_db->select('SELECT id, frage, description, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id AND answered.user_id=:user_id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC', array(':user_id'=>$user_id));
   }
 
+  public function getPollsOpenRssFeed($language=""){
+    return $this->_db->select('SELECT id, frage, description, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count,	not isnull(answered.frage_id) as answered FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id LEFT JOIN '.PREFIX.'answered ON answered.frage_id=fragen.id WHERE startdate<=NOW() AND enddate>NOW() GROUP BY fragen.id ORDER BY enddate ASC');
+  }
+  
   public function getPollsClosed(){
     return $this->_db->select('SELECT id, frage, description, fragen.created, created_by, startdate, enddate, count(stimmen.frage_id) as count FROM '.PREFIX.'fragen LEFT JOIN '.PREFIX.'stimmen ON stimmen.frage_id=fragen.id WHERE startdate<>"0000-00-00 00:00:00" AND enddate<NOW() GROUP BY fragen.id ORDER BY created DESC');
   }

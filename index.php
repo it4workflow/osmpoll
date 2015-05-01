@@ -109,6 +109,7 @@ Router::post('/email', '\controllers\main@emailMessage');
 Router::post('/oauth/login', '\controllers\oauth@authorize');
 Router::get('/oauth/callback', '\controllers\oauth@callback');
 Router::get('/rss', '\controllers\rss@feed');
+Router::get('/rss/(:any)', '\controllers\rss@feedLanguage');
 
 //if no route found
 //Router::error('\core\error@index');

@@ -7,10 +7,10 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'
  
   <channel>
     <atom:link href="http://osm.haraldhartmann.de/umfrage/rss" rel="self" type="application/rss+xml" />
-    <title><?=htmlspecialchars(core\language::show('title','rss'), ENT_COMPAT|ENT_XML1) ?></title>
+    <title><?=htmlspecialchars(core\language::show('title','rss', $data['language']), ENT_COMPAT|ENT_XML1) ?></title>
     <link>http://osm.haraldhartmann.de/umfrage/</link>
-    <description><?=htmlspecialchars(core\language::show('description','rss'), ENT_COMPAT|ENT_XML1) ?></description>
-    <language>de-de</language>
+    <description><?=htmlspecialchars(core\language::show('description','rss', $data['language']), ENT_COMPAT|ENT_XML1) ?></description>
+    <language><?=$data['language']?></language>
     <copyright>Harald Hartmann, osm@haraldhartmann.de</copyright>
     <ttl>60</ttl>
     <pubDate><?php $date = new DateTime(); echo $date->format(DateTime::RSS);?></pubDate>

@@ -18,19 +18,23 @@ class Rss extends \core\controller{
 	}
 
   public function feed(){
+    $this->feedLanguage("");
+  }
 
-    $polls = $this->_poll->getPollsOpen();
+  public function feedLanguage($language = "en"){
+
+    $polls = $this->_poll->getPollsOpen($language);
 
     $pollsrss = array();
-
     foreach ($polls as $poll) {
       array_push($pollsrss, array ('poll'=>$poll, 'answers' => $this->_poll->getAnswers($poll->id)));
     }
 
     $data['polls'] = $pollsrss;
-
+    $data['language'] = empty($language)?"en":$language;
+    
 		View::render('rss/xml', $data);
 
   }
-
+  
 }
