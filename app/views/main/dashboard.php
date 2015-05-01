@@ -41,7 +41,7 @@
               <td><?=$poll->created_by?></td>
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
               <td><?=$poll->count?></td>
-              <td><?=date_format(date_create($poll->enddate),'d.m.Y')?></td>
+              <td><span style="white-space: nowrap;"><?=date_format(date_create($poll->enddate),'Y-m-d')?></span></td>
             </tr>
             <?php } ?>
             </tbody>
@@ -109,7 +109,7 @@
               <td><span class="glyphicon glyphicon-<?=$poll->answered?'check':'unchecked';?>"></span></td>
               <td><?=$poll->created_by?></td>
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
-              <td><?=date_format(date_create($poll->enddate),'d.m.Y')?></td>
+              <td><span style="white-space: nowrap;"><?=date_format(date_create($poll->enddate),'Y-m-d')?></span></td>
             </tr>
             <?php } ?>
             </tbody>

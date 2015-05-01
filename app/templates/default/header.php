@@ -42,7 +42,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <?php if (\helpers\session::get('logged_in')) { ?>
-          <p class="navbar-text navbar-left"><?php echo sprintf(_("Hallo %s (%s %s)"), \helpers\session::get('osm_user_display_name'), '<a href="http://resultmaps.neis-one.org/oooc" class="navbar-link">Status <span class="glyphicon glyphicon-new-window"></span></a>:', \helpers\utils::getMapperType(\helpers\session::get('osm_user_changesets'))) ?></p>
+          <p class="navbar-text navbar-left"><?php echo sprintf(_("%s (%s %s)"), \helpers\session::get('osm_user_display_name'), '<a href="http://resultmaps.neis-one.org/oooc" class="navbar-link">Status <span class="glyphicon glyphicon-new-window"></span></a>:', \helpers\utils::getMapperType(\helpers\session::get('osm_user_changesets'))) ?></p>
           <a href="<?=DIR.'logout'?>" class="btn btn-default navbar-btn"><?=core\language::show('btn_logout','main', \helpers\session::get('language')) ?></a>
           <a href="<?=DIR.'poll/create'?>" class="btn btn-default navbar-btn"><?=core\language::show('btn_create','main', \helpers\session::get('language')) ?></a>
         <?php } ?>

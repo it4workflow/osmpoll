@@ -95,7 +95,7 @@
           </div>
           <div class="panel-body">
           <?php foreach ($data['comments'] as $comment) { ?>
-            <?=htmlentities($comment->created_by) ?> - <?=date_format(date_create($comment->created),'d. F Y H:i')?></strong>
+            <?=htmlentities($comment->created_by) ?> - <?php $date = new DateTime($comment->created); echo $date->format(DateTime::RFC2822); ?></strong>
             <div class="well well-sm"><?=nl2br(htmlentities($comment->comment)) ?></div>
             <hr>
           <?php } ?>
