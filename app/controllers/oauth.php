@@ -68,6 +68,8 @@ class OAuth extends \core\controller{
         session::set('osm_user_display_name', strval($xml->user['display_name']));
         session::set('osm_user_changesets', intval($xml->user->changesets['count']));
         session::set('osm_user_account_created', strval($xml->user['account_created']));
+        session::set('osm_user_lat', strval($xml->user->home['lat']));
+        session::set('osm_user_lon', strval($xml->user->home['lon']));
         session::set('lastcheck', new DateTime('now'));
         $availableLanguages = unserialize(LANGUAGES);
         foreach($xml->user->languages->lang as $isocode){
@@ -99,6 +101,8 @@ class OAuth extends \core\controller{
           $xml = simplexml_load_string($user_details['body']);
           session::set('osm_user_display_name', strval($xml->user['display_name']));
           session::set('osm_user_changesets', intval($xml->user->changesets['count']));
+          session::set('osm_user_lat', strval($xml->user->home['lat']));
+          session::set('osm_user_lon', strval($xml->user->home['lon']));
           session::set('lastcheck', new DateTime('now'));
         }
     } catch(OAuthException2 $E) {
