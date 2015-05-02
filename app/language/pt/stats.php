@@ -2,14 +2,14 @@
 
 return array(
 
-  "votes" => "votes",
+  "votes" => "votos",
   
-  "donut_per_answer" => "per answer",
+  "donut_per_answer" => "por resposta",
   
-  "stacked_per_mappertype" => "per mapper-type",
+  "stacked_per_mappertype" => "por tipo de mapeador",
 
-  "time_per_period" => "per period",
-  "time_count" => "count",
-  "time_date" => "date"
+  "time_per_period" => "por período",
+  "time_count" => "contagem",
+  "time_date" => "data"
   
 );
