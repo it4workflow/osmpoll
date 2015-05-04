@@ -24,8 +24,9 @@
     <div class="row" style="font-size: 1.5em; margin-bottom: 0.25em;">
       <div class="col-sm-2">
           <div class="">
-            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==1?'/delete/':'/vote/up/').$tag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['uservotes'][$tag->id]==1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['uservotes'][$tag->id]==1?'text-success':'text-muted'?>"></span></a>
-            <span class="label <?php if ($tag->votes>0) echo 'label-success'; if ($tag->votes<0) echo 'label-danger'; if ($tag->votes==0) echo 'label-default';?>" data-toggle="tooltip" data-placement="top" title="<?=$tag->up; ?> / <?=$tag->down; ?>"><?=$tag->votes;?></span>            <a href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==-1?'/delete/':'/vote/down/').$tag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['uservotes'][$tag->id]==-1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['uservotes'][$tag->id]==-1?'text-danger':'text-muted'?>"></span></a>
+            <a class="label <?=$data['uservotes'][$tag->id]==1?'label-success':''?>" href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==1?'/delete/':'/vote/up/').$tag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['uservotes'][$tag->id]==1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['uservotes'][$tag->id]==1?'':'text-muted'?>"></span></a>
+            <span class="label <?php if ($tag->votes>0) echo 'label-success'; if ($tag->votes<0) echo 'label-danger'; if ($tag->votes==0) echo 'label-default';?>" data-toggle="tooltip" data-placement="top" title="<?=$tag->up; ?> / <?=$tag->down; ?>"><?=$tag->votes;?></span>            
+            <a class="label <?=$data['uservotes'][$tag->id]==-1?'label-danger':''?>" href="<?=DIR.'hut/'.$tag->hut_id.($data['uservotes'][$tag->id]==-1?'/delete/':'/vote/down/').$tag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['uservotes'][$tag->id]==-1?'cancel vote':'vote'?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['uservotes'][$tag->id]==-1?'':'text-muted'?>"></span></a>
           </div>
       </div>
       <div class="col-sm-2">
