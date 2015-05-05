@@ -10,9 +10,7 @@ use OAuthStore,
     \helpers\url;
 
 /*
- * @author David Carr - dave@daveismyname.com - http://www.daveismyname.com
- * @version 2.1
- * @date June 27, 2014
+ * @author Harald Hartmann - osm@haraldhartmann.de
  */
 class OAuth extends \core\controller{
 
@@ -94,7 +92,8 @@ class OAuth extends \core\controller{
   public function updateUserDetails() {
     try {
         $lastcheck = session::get('lastcheck');
-        if(!$lastcheck || $lastcheck->diff(new DateTime("now")) > 3600){
+        if(!$lastcheck || $lastcheck->diff(new DateTime("now"))->h >= 1){
+          
           $user_details_request = new OAuthRequester($this->config['server_uri'], 'GET', array());
           $user_details = $user_details_request->doRequest(session_id());
 
