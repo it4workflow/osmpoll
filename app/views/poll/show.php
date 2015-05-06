@@ -11,7 +11,7 @@
           <div class="panel panel-default">
           <?php foreach ($data['answers'] as $answer) { ?>
             <div>
-             <input type="radio" name="answer" readonly> <strong><?=$answer->antwort ?></strong> <?=$answer->description ?>
+             - <strong><?=$answer->antwort ?></strong> <?=$answer->description ?>
             </div>
           <?php } ?>
           </div>
