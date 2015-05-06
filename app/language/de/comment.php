@@ -2,7 +2,7 @@
 
 return array(
 
-  "btn_create" => "Speichern",
+  "btn_create" => "Kommentieren",
 
   "comment_headline" => "Kommentare",
   "comment" => "Kommentar",

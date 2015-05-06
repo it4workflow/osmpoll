@@ -12,7 +12,7 @@ $(function () {
 });
 
 $(function () {
- $('[data-toggle="tagcomments"]').on("click", function (event) { 
+ $('[data-toggle-comments="tagcomments"]').on("click", function (event) { 
         event.preventDefault();
         $('[data-type="tagcomment"]').toggle();
     });
