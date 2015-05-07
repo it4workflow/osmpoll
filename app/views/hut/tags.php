@@ -2,7 +2,7 @@
 <form action="<?=DIR.'hut/'.$data['hut'][0]->id.'/tag/add'; ?>" method="post" name="huttag" role="form">
         <div class="col-sm-2">&nbsp;</div>
         <div class="col-sm-2" style="font-size: 1.5em;">
-            <a href="#" data-toggle="tagcomments" data-id="<?=$tag->id?>">
+            <a href="#" data-toggle-comments="tagcomments" data-id="<?=$tag->id?>">
               <span class="glyphicon glyphicon-comment" data-toggle="tooltip" data-placement="top" title="<?=core\language::show('show_all_comments','hut', \helpers\session::get('language')) ?>"></span>
                 
             </a>
@@ -32,7 +32,7 @@
       <div class="col-sm-2">
           <span class="glyphicon glyphicon-user" title="<?=$tag->created_by?>" data-toggle="tooltip" data-placement="left"></span>
           <span class="glyphicon glyphicon-time" title="<?=$tag->created?>" data-toggle="tooltip" data-placement="top"></span>
-          <a href="#" data-toggle-comments="tagcomments" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('show_comments','hut', \helpers\session::get('language')) ?>" data-id="<?=$tag->id?>"><?=sizeof($tag->comments)?>x <span class="glyphicon glyphicon-comment"></span></a>
+          <a href="#" data-toggle="tagcomment" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('show_comments','hut', \helpers\session::get('language')) ?>" data-id="<?=$tag->id?>"><?=sizeof($tag->comments)?>x <span class="glyphicon glyphicon-comment"></span></a>
       </div>
       <div class="col-sm-8">
           <a href="https://wiki.openstreetmap.org/wiki/Key:<?=$tag->tagkey;?>" data-toggle="tooltip" data-placement="left" title="<?=core\language::show('goto_wiki_key','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$tag->tagkey;?></span></a> = 
