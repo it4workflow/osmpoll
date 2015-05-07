@@ -1,5 +1,5 @@
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
 });
 
 $(function () {
@@ -22,7 +22,7 @@ $(function () {
   $('#btnPreview').on("click", function (event) {
     event.preventDefault();
     $.ajax({
-        url: '/osmpoll/comment/preview',
+        url: '../comment/preview',
         method: 'POST',
         type: 'POST',
         data: 'comment='+$('#maincomment').val(),
@@ -30,5 +30,5 @@ $(function () {
             $('#preview').html(data);
         }
     });
-  })
-})
+  });
+});
