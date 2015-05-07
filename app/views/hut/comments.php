@@ -13,7 +13,7 @@
     <form action="<?=DIR.'hut/comment/'.$data['hut'][0]->id; ?>" method="post" name="comment" role="form">
       <div class="row">
         <div class="col-sm-6">
-          <textarea id="maincomment" name="comment" class="form-control" rows="6" placeholder="parsedown"></textarea>
+          <textarea id="maincomment" name="comment" class="form-control" rows="6" placeholder="markdown support"></textarea>
           <div class="form-group">
             <button id="btnPreview" type="preview" class="btn btn-default" name="preview" ><?=core\language::show('btn_preview','comment', \helpers\session::get('language')) ?></button>
             <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
