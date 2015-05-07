@@ -44,7 +44,7 @@
       <div class="row">
           <div class="col-sm-2">&nbsp;</div>
           <div class="col-sm-8">
-              <blockquote><?=nl2br(htmlentities($comment->comment));?><footer><?=htmlentities($comment->created_by);?>, <?=htmlentities($comment->created);?></footer></blockquote>  
+              <blockquote><?=\helpers\parsedown::instance()->parse($comment->comment) ?><footer><?=htmlentities($comment->created_by);?>, <?=htmlentities($comment->created);?></footer></blockquote>  
           </div>
       </div>
       <?php } ?>

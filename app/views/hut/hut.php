@@ -6,7 +6,7 @@
     <div class="panel-heading">
       <a href="https://www.openstreetmap.org/user/<?=$data['hut'][0]->created_by;?>"><?=$data['hut'][0]->created_by;?> <span class="glyphicon glyphicon-new-window"></span></a> <?=core\language::show('wanttoknow','poll', \helpers\session::get('language')) ?><br/>
       <h4><?=htmlentities($data['hut'][0]->title)?></h4>
-      <?=htmlentities($data['hut'][0]->description)?><br>
+      <?=\helpers\parsedown::instance()->parse($data['hut'][0]->description) ?><br>
       <?php foreach ($data['images'] as $image) { ?>
       <a href="<?=DIR.'images/'.$image->hut_id.'/'.$image->image; ?>" target="_blank"><img src="<?=DIR.'images/'.$image->hut_id.'/thumbs/'.$image->image; ?>"></a>
       <?php } ?>
