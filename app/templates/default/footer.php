@@ -8,6 +8,7 @@
     © Harald Hartmann 2015 - based on <a href="http://simplemvcframework.com/" target="_blank">Simple MVC Framework <span class="glyphicon glyphicon-new-window"></span></a>,
     <a href="http://getbootstrap.com/" target="_blank">bootstrap <span class="glyphicon glyphicon-new-window"></span></a>, 
     <a href="https://jquery.com/" target="_blank">jQuery <span class="glyphicon glyphicon-new-window"></span></a>,
+    <a href="http://parsedown.org/" target="_blank">Parsedown <span class="glyphicon glyphicon-new-window"></span></a>,
     <a href="https://highcharts.com/" target="_blank">highcharts <span class="glyphicon glyphicon-new-window"></span></a>,
     <a href="https://datatables.net/" target="_blank">dataTables <span class="glyphicon glyphicon-new-window"></span></a> 
     - use of cookies and javascript
