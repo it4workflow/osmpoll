@@ -100,6 +100,7 @@ if(session::get('logged_in')){
   Router::get('/hut/(:num)/delete/(:num)', '\controllers\hut@deleteVote');
   Router::post('/hut/(:num)/tag/add', '\controllers\hut@createTag');
   Router::post('/hut/(:num)/tag/(:num)/comment/add', '\controllers\hut@addTagComment');
+  Router::post('/comment/preview', '\controllers\comment@preview');
 } else {
   Router::get('', '\controllers\welcome@welcome');
 }

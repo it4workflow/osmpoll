@@ -28,5 +28,9 @@ class Comment extends \core\controller{
     }
     \helpers\url::redirect('poll/'.$frageId);
   }
+  
+  public function preview() {
+    echo \helpers\parsedown::instance()->parse($_POST['comment']);
+  }
 
 }

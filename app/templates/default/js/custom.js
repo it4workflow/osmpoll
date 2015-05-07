@@ -18,3 +18,17 @@ $(function () {
     });
 });
 
+$(function () {
+  $('#btnPreview').on("click", function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/osmpoll/comment/preview',
+        method: 'POST',
+        type: 'POST',
+        data: 'comment='+$('#maincomment').val(),
+        success: function (data) {
+            $('#preview').html(data);
+        }
+    });
+  })
+})
