@@ -1,17 +1,20 @@
 $(document).ready(function() {
-    $('#closedtable').dataTable({
+    $('#opentable').dataTable({
         "language": {
             "url": "app/templates/default/js/dataTables-"+language+".json"
-        }
+        },
+        "order": [[3,"asc"]]
     });
     $('#todotable').dataTable({
         "language": {
             "url": "app/templates/default/js/dataTables-"+language+".json"
-        }
+        },
+        "order": [[3,"asc"]]
     });
-    $('#opentable').dataTable({
+    $('#closedtable').dataTable({
         "language": {
             "url": "app/templates/default/js/dataTables-"+language+".json"
-        }
+        },
+        "order": [[3,"desc"]]
     });
 });

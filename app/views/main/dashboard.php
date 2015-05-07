@@ -18,7 +18,6 @@
           <table id="opentable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
                 <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('count','poll', \helpers\session::get('language')) ?></th>
@@ -27,7 +26,6 @@
             </thead>
             <tfoot>
               <tr>
-                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
                 <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('count','poll', \helpers\session::get('language')) ?></th>
@@ -37,7 +35,6 @@
             <tbody>
             <?php foreach ($data['open'] as $poll) {?>
             <tr>
-              <td><span class="glyphicon glyphicon-<?=$poll->answered?'check':'unchecked';?>"></span></td>
               <td><?=$poll->created_by?></td>
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
               <td><?=$poll->count?></td>
@@ -89,7 +86,6 @@
           <table id="todotable" class="table table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
                 <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('until','poll', \helpers\session::get('language')) ?></th>
@@ -97,7 +93,6 @@
             </thead>
             <tfoot>
               <tr>
-                <th><span class="glyphicon glyphicon-unchecked"></span> </th>
                 <th><?=core\language::show('user','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('question','poll', \helpers\session::get('language')) ?></th>
                 <th><?=core\language::show('until','poll', \helpers\session::get('language')) ?></th>
@@ -106,7 +101,6 @@
             <tbody>
             <?php foreach ($data['todo'] as $poll) {?>
             <tr>
-              <td><span class="glyphicon glyphicon-<?=$poll->answered?'check':'unchecked';?>"></span></td>
               <td><?=$poll->created_by?></td>
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
               <td><span style="white-space: nowrap;"><?=date_format(date_create($poll->enddate),'Y-m-d')?></span></td>
@@ -145,7 +139,7 @@
               <td><?=$poll->created_by?></td>
               <td><a href="<?=DIR.'poll/'.$poll->id;?>"><?=$poll->frage?></td>
               <td><?=$poll->count?></td>
-              <td><?=date_format(date_create($poll->enddate),'d.m.Y')?></td>
+              <td><span style="white-space: nowrap;"><?=date_format(date_create($poll->enddate),'Y-m-d')?></span></td>
             </tr>
           <?php } ?>
           </table>
