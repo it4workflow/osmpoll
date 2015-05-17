@@ -65,6 +65,29 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `osmpoll`.`hut_subtags`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `osmpoll`.`hut_subtags` ;
+
+CREATE TABLE IF NOT EXISTS `osmpoll`.`hut_subtags` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `parent_hut_tag_id` INT(11) NOT NULL,
+  `tagkey` VARCHAR(255) NOT NULL,
+  `tagvalue` VARCHAR(255) NOT NULL,
+  `created_by` VARCHAR(255) NOT NULL,
+  `created_osmid` INT(11) NOT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `tagkey_tagvalue_UNIQUE` (`parent_hut_tag_id` ASC, `tagkey` ASC, `tagvalue` ASC),
+  CONSTRAINT `fk_hut_tags_1`
+    FOREIGN KEY (`parent_hut_tag_id`)
+    REFERENCES `osmpoll`.`hut_tags` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `osmpoll`.`hut_tags_voting`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `osmpoll`.`hut_tags_voting` ;
@@ -82,6 +105,11 @@ CREATE TABLE IF NOT EXISTS `osmpoll`.`hut_tags_voting` (
   CONSTRAINT `fk_hut_tags_voting_1`
     FOREIGN KEY (`hut_tags_id`)
     REFERENCES `osmpoll`.`hut_tags` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hut_subtags_voting_1`
+    FOREIGN KEY (`hut_tags_id`)
+    REFERENCES `osmpoll`.`hut_subtags` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -104,6 +132,11 @@ CREATE TABLE IF NOT EXISTS `osmpoll`.`hut_tags_comment` (
   CONSTRAINT `fk_hut_tags_comment_1`
     FOREIGN KEY (`hut_tags_id`)
     REFERENCES `osmpoll`.`hut_tags` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hut_subtags_comment_1`
+    FOREIGN KEY (`hut_tags_id`)
+    REFERENCES `osmpoll`.`hut_subtags` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
