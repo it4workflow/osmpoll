@@ -3,7 +3,7 @@
       <div class="panel-heading">
         <a href="https://www.openstreetmap.org/user/<?=$data['user_displayname']?>"><?=$data['user_displayname']?> <span class="glyphicon glyphicon-new-window"></span></a> <?=core\language::show('wanttoknow','poll', \helpers\session::get('language')) ?><br/>
         <h4><?=htmlentities($data['question']->frage)?></h4>
-        <?=htmlentities($data['question']->description)?>
+        <?=\helpers\parsedown::instance()->parse($data['question']->description) ?>
       </div>
       <div class="panel-body">
 
@@ -96,12 +96,12 @@
           <div class="panel-body">
           <?php foreach ($data['comments'] as $comment) { ?>
             <?=htmlentities($comment->created_by) ?> - <?php $date = new DateTime($comment->created); echo $date->format(DateTime::RFC2822); ?></strong>
-            <div class="well well-sm"><?=nl2br(htmlentities($comment->comment)) ?></div>
+            <div class="well well-sm"><?=\helpers\parsedown::instance()->parse($comment->comment) ?></div>
             <hr>
           <?php } ?>
           
           <form action="<?=DIR.'poll/'.$data['question']->id.'/comment'?>" method="post" name="comment" role="form">
-            <textarea name="commenttext" class="form-control" rows="6"></textarea>
+            <textarea name="commenttext" class="form-control" rows="6" placeholder="markdown support"></textarea>
             <div class="form-group">
               <button type="submit" class="btn btn-default" name="submit" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
             </div>
