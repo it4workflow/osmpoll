@@ -34,7 +34,11 @@ class Hut extends \core\model {
   }
   
   public function getHutTagsOrderedByVoting($hutId) {
-    return $this->_db->select('SELECT tags.*, IFNULL(sum(vote.voting), 0) as votes FROM '.PREFIX.'hut_tags tags LEFT JOIN '.PREFIX.'hut_tags_voting vote ON vote.hut_tags_id=tags.id WHERE tags.hut_id = :hutId GROUP BY tags.id ORDER BY votes DESC', array(':hutId' => $hutId));
+    return $this->_db->select('SELECT tags.*, IFNULL(sum(vote.voting), 0) as votes FROM '.PREFIX.'hut_tags tags LEFT JOIN '.PREFIX.'hut_tags_voting vote ON vote.hut_tags_id=tags.id WHERE tags.hut_id = :hutId and parent_tag_id=0 GROUP BY tags.id ORDER BY votes DESC', array(':hutId' => $hutId));
+  }
+  
+  public function getHutSubTagsOrderedByVoting($hutTagId) {
+    return $this->_db->select('SELECT tags.*, IFNULL(sum(vote.voting), 0) as votes FROM '.PREFIX.'hut_tags tags LEFT JOIN '.PREFIX.'hut_tags_voting vote ON vote.hut_tags_id=tags.id WHERE tags.parent_tag_id = :hutTagId GROUP BY tags.id ORDER BY votes DESC', array(':hutTagId' => $hutTagId));
   }
   
   public function createHutTag($values) {

@@ -92,22 +92,24 @@ if(session::get('logged_in')){
   Router::post('/poll/(:num)', '\controllers\poll@answer');
   Router::get('logout', '\controllers\main@logout');
   Router::post('/poll/(:num)/comment', '\controllers\comment@poll');
-  Router::get ('/hut',                  '\controllers\hut@overview');
-  Router::get ('/hut/(:num)',           '\controllers\hut@show');
-  Router::post('/hut/comment/(:num)',   '\controllers\hut@addComment');
-  Router::get('/hut/(:num)/vote/up/(:num)', '\controllers\hut@voteUp');
-  Router::get('/hut/(:num)/vote/down/(:num)', '\controllers\hut@voteDown');
-  Router::get('/hut/(:num)/delete/(:num)', '\controllers\hut@deleteVote');
-  Router::post('/hut/(:num)/tag/add', '\controllers\hut@createTag');
+  Router::post('/hut/create',                 '\controllers\hut@create');
+  Router::post('/hut/comment/(:num)',         '\controllers\hut@addComment');
+  Router::post('/hut/(:num)/tag/add',         '\controllers\hut@createTag');
+  Router::post('/hut/(:num)/tag/(:num)/add',  '\controllers\hut@createSubtag');
   Router::post('/hut/(:num)/tag/(:num)/comment/add', '\controllers\hut@addTagComment');
-  Router::post('/comment/preview', '\controllers\comment@preview');
+  Router::get('/hut/(:num)/vote/up/(:num)',   '\controllers\hut@voteUp');
+  Router::get('/hut/(:num)/vote/down/(:num)', '\controllers\hut@voteDown');
+  Router::get('/hut/(:num)/delete/(:num)',    '\controllers\hut@deleteVote');
 } else {
   Router::get('', '\controllers\welcome@welcome');
 }
+Router::post('/comment/preview', '\controllers\comment@preview');
+Router::get ('/hut',                  '\controllers\hut@overview');
+Router::get ('/hut/(:num)',           '\controllers\hut@show');
 Router::get('/language/(:any)', '\controllers\main@language');
 Router::get('/impressum', '\controllers\main@impressum');
 Router::post('/email', '\controllers\main@emailMessage');
-Router::post('/oauth/login', '\controllers\oauth@authorize');
+Router::get('/oauth/login', '\controllers\oauth@authorize');
 Router::get('/oauth/callback', '\controllers\oauth@callback');
 Router::get('/rss', '\controllers\rss@feed');
 Router::get('/rss/(:any)', '\controllers\rss@feedLanguage');

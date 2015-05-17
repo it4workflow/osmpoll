@@ -8,7 +8,7 @@
       <div class="col-sm-4">
         <h3><?=core\language::show('how_title','welcome', \helpers\session::get('language')) ?></h3>
         <?=core\language::show('how_description','welcome', \helpers\session::get('language')) ?>
-        <form action="<?=DIR.'oauth/login'?>" method="post" name="oauth-login" class="form-horizontal" role="form">
+        <form action="<?=DIR.'oauth/login'?>" method="get" name="oauth-login" class="form-horizontal" role="form">
           <button type="submit" class="btn btn-default" name="login" ><?=core\language::show('login','welcome', \helpers\session::get('language')) ?></button>
         </form>   
       </div>

@@ -48,6 +48,8 @@
           <p class="navbar-text navbar-left"><?=\helpers\session::get('osm_user_display_name')?> (<a href="http://resultmaps.neis-one.org/oooc?zoom=14<?=!empty(\helpers\session::get('osm_user_lat'))?'&lat='.\helpers\session::get('osm_user_lat').'&lon='.\helpers\session::get('osm_user_lon'):''?>" class="navbar-link">Status <span class="glyphicon glyphicon-new-window"></span></a> <?=\helpers\utils::getMapperType(\helpers\session::get('osm_user_changesets')) ?>)</p>
           <a href="<?=DIR.'logout'?>" class="btn btn-default navbar-btn"><?=core\language::show('btn_logout','main', \helpers\session::get('language')) ?></a>
           <a href="<?=DIR.'poll/create'?>" class="btn btn-default navbar-btn"><?=core\language::show('btn_create','main', \helpers\session::get('language')) ?></a>
+        <?php } else { ?>
+          <a href="<?=DIR.'oauth/login'?>" class="btn btn-default navbar-btn"><?=core\language::show('login','welcome', \helpers\session::get('language')) ?></a>
         <?php } ?>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="http://osm.haraldhartmann.de/umfrage/rss/" target="_blank"><img src="<?=helpers\url::template_path() . 'images/rss.png' ?>" width="16px" alt="rss"/></a></li>

@@ -14,4 +14,18 @@
     </div>
   </div>
   <?php } ?>
+  <?php if (\helpers\session::get('logged_in')) { ?>
+  <hr>
+  <form action="<?=DIR.'hut/create'?>" method="post" name="create-hut" role="form">
+      <div class=form-group">
+        <label for="title"><?=core\language::show('title','hut', \helpers\session::get('language')) ?></label>
+        <input type="text" name="title" class="form-control" maxlength="255">
+      </div>
+      <div class="form-group">
+        <label for="description"><?=core\language::show('question_description','poll', \helpers\session::get('language')) ?></label>
+        <textarea id="description" name="description" class="form-control" rows="6" placeholder="markdown support"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default"><?=core\language::show('btn_create','hut', \helpers\session::get('language')) ?></button>
+  </form>
+  <?php } ?>
 </div>

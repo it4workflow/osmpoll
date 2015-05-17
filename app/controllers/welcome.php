@@ -1,5 +1,6 @@
 <?php namespace controllers;
-use core\view;
+use core\view,
+    helpers\session;
 
 /*
  * Welcome controller
@@ -15,7 +16,7 @@ class Welcome extends \core\controller{
 	}
 
 	public function welcome() {
-    \helpers\session::set('referer', $_SERVER['REDIRECT_QUERY_STRING']);
+    session::set('referrer', $_SERVER['REDIRECT_QUERY_STRING']);
 		View::rendertemplate('header', $data);
 		View::render('welcome/welcome', $data);
 		View::rendertemplate('footer', $data);

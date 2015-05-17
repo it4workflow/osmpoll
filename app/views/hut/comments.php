@@ -10,6 +10,7 @@
       <hr>
     <?php } ?>
 
+    <?php if (\helpers\session::get('logged_in')) { ?>  
     <form action="<?=DIR.'hut/comment/'.$data['hut'][0]->id; ?>" method="post" name="comment" role="form">
       <div class="row">
         <div class="col-sm-6">
@@ -24,7 +25,7 @@
         </div>
       </div>
     </form>
-
+    <?php } ?>
     </div>
   </div>
 </div>  
