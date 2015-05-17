@@ -21,11 +21,19 @@
         <label for="title"><?=core\language::show('title','hut', \helpers\session::get('language')) ?></label>
         <input type="text" name="title" class="form-control" maxlength="255">
       </div>
-      <div class="form-group">
-        <label for="description"><?=core\language::show('question_description','poll', \helpers\session::get('language')) ?></label>
-        <textarea id="description" name="description" class="form-control" rows="6" placeholder="markdown support"></textarea>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="description"><?=core\language::show('question_description','poll', \helpers\session::get('language')) ?></label>
+            <textarea id="maincomment" name="description" class="form-control" rows="6" placeholder="markdown support"></textarea>
+          </div>
+          <button id="btnPreview" type="preview" class="btn btn-default" name="preview" ><?=core\language::show('btn_preview','comment', \helpers\session::get('language')) ?></button>
+          <button type="submit" class="btn btn-default"><?=core\language::show('btn_create','hut', \helpers\session::get('language')) ?></button>
+        </div>
+        <div class="col-sm-6">
+          <blockquote id="preview"></blockquote>
+        </div>
       </div>
-      <button type="submit" class="btn btn-default"><?=core\language::show('btn_create','hut', \helpers\session::get('language')) ?></button>
   </form>
   <?php } ?>
 </div>

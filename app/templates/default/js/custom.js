@@ -22,7 +22,7 @@ $(function () {
   $('#btnPreview').on("click", function (event) {
     event.preventDefault();
     $.ajax({
-        url: '../comment/preview',
+        url: markdownPreviewUrl,
         method: 'POST',
         type: 'POST',
         data: 'comment='+$('#maincomment').val(),
