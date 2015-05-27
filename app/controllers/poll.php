@@ -106,7 +106,7 @@ class Poll extends \core\controller{
     }
 
     $answers = array();
-    $answer = array ('frage_id' => $id, 'id' => 0, 'antwort' => 'Enthaltung');
+    $answer = array ('frage_id' => $id, 'id' => 0, 'antwort' => \core\language::show('btn_abstain','poll', \helpers\session::get('language')));
     array_push($answers, $answer);
     for( $i=1; $i<=10; $i++ ) {
       if (isset($_REQUEST['antwort_'.$i]) && !empty($_REQUEST['antwort_'.$i]) ) {
