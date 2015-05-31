@@ -11,7 +11,7 @@
           <div class="panel panel-default">
           <?php foreach ($data['answers'] as $answer) { ?>
             <div>
-             - <strong><?=$answer->antwort ?></strong> <?=$answer->description ?>
+              <span class="glyphicon glyphicon-<?=$answer->id==$data['answer']->id?"check":"unchecked";?>"></span> <strong><?=htmlspecialchars($answer->antwort); ?></strong> <?=htmlspecialchars($answer->description); ?>
             </div>
           <?php } ?>
           </div>
@@ -46,7 +46,7 @@
         <script type="text/javascript">
             var donutdata = [
               <?php foreach ($data['donut'] as $segment) { ?>
-                ['<?=$segment->antwort;?>', <?=isset($segment->count)?$segment->count:0 ?>],
+                ['<?=htmlspecialchars($segment->antwort);?>', <?=isset($segment->count)?$segment->count:0 ?>],
               <?php } ?>
             ];
 
@@ -54,7 +54,7 @@
               series: [
               <?php foreach ($data['stacked'] as $key=>$type) { ?>
                 {
-                  name: "<?=$key;?>",
+                  name: '<?=htmlspecialchars($key);?>',
                   data: [<?=isset($type['Gold'])?$type['Gold']:0 ?>, <?=isset($type['Senior+'])?$type['Senior+']:0 ?>, <?=isset($type['Senior'])?$type['Senior']:0 ?>, <?=isset($type['Junior'])?$type['Junior']:0 ?>, <?=isset($type['Nonrecurring'])?$type['Nonrecurring']:0 ?>],
                 },
               <?php } ?>

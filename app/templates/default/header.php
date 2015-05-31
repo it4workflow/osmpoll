@@ -21,7 +21,7 @@
       helpers\url::template_path() . 'css/dataTables.bootstrap.css',
 			helpers\url::template_path() . 'css/style.css',
       helpers\url::template_path() . 'css/custom.css'
-		))
+		));
 	?>
   
   <script type="text/javascript">var language="<?=\helpers\session::get('language'); ?>";</script>

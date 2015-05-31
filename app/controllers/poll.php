@@ -41,6 +41,7 @@ class Poll extends \core\controller{
     $data['message'] = $message;
     $data['user_displayname'] = $poll->created_by;
     $data['answered'] = count($this->_poll->hasAnswered($id, \helpers\session::get('osm_user_id')))==1;
+    $data['answer'] = $this->_poll->getAnswer($id, \helpers\session::get('osm_user_id'))[0];
     $data['draftmode'] = $startdate == $enddate;
     $data['closed'] = $now >= $enddate && !$data['draftmode'];
     $data['answers'] = $this->_poll->getAnswers($id);

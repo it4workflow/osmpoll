@@ -41,7 +41,7 @@ class Poll extends \core\model {
     return $this->_db->select('SELECT stimmen.frage_id, stimmen.antwort_id, antwort, COUNT(stimmen.frage_id) as count FROM stimmen JOIN antworten ON antworten.frage_id=stimmen.frage_id AND antworten.id=stimmen.antwort_id WHERE stimmen.frage_id = :id GROUP BY stimmen.frage_id, stimmen.antwort_id ORDER BY antworten.id', array(':id' => $id));
   }
 
-  public function getStacked($id){
+  public function getStacked($id) {
     $result = $this->_db->select("select * from (
     select 'Gold' as mappertype, antworten.id, antwort, count(stimmen.antwort_id) as count from stimmen JOIN antworten ON antworten.frage_id=stimmen.frage_id AND antworten.id=stimmen.antwort_id where stimmen.frage_id = :id AND stimmen.changesets>=2000 group by antwort 
 union select 'Senior+', antworten.id, antwort, count(stimmen.antwort_id) from stimmen JOIN antworten ON antworten.frage_id=stimmen.frage_id AND antworten.id=stimmen.antwort_id where stimmen.frage_id = :id AND stimmen.changesets<2000 and stimmen.changesets>=500 group by antwort
@@ -60,8 +60,13 @@ union select 'Nonrecurring', antworten.id, antwort, count(stimmen.antwort_id) fr
     return $this->_db->select('SELECT year(created) as `year`, month(created) as `month`, day(created) as `day`, count(frage_id) as `count` FROM '.PREFIX.'stimmen WHERE frage_id=:id GROUP BY year(created), month(created), day(created) ORDER BY `year`, `month`, `day`', array(':id'=>$id));
   }
 
-  public function hasAnswered($id, $user){
-    $result = $this->_db->select('SELECT frage_id FROM answered WHERE frage_id = :id AND user_id = :user', array(':id'=>$id, ':user'=>$user));
+  public function hasAnswered($id, $user_id) {
+    $result = $this->_db->select('SELECT frage_id FROM answered WHERE frage_id = :id AND user_id = :userId', array(':id'=>$id, ':userId'=>$user_id));
+    return $result;
+  }
+  
+  public function getAnswer($frage_id, $user_id) {
+    $result = $this->_db->select('SELECT antwort_id as id FROM stimmen WHERE frage_id= :frageId AND user_id= :userId', array(':frageId'=>$frage_id, ':userId'=>$user_id)); 
     return $result;
   }
 
@@ -73,7 +78,7 @@ union select 'Nonrecurring', antworten.id, antwort, count(stimmen.antwort_id) fr
     $this->_db->insert(PREFIX.'answered', $values);
   }
 
-  public function createPoll($poll){
+  public function createPoll($poll) {
     $this->_db->insert(PREFIX.'fragen', $poll);
     return $this->_db->lastInsertId('id');
   }
