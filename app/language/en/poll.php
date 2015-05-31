@@ -18,8 +18,10 @@ return array(
   "answer" => "Answer",
   "answer_placeholder" => "max. 30 chars (tag)",
   "answer_description" => "Description",
-  "percent" => "Percent",
 
+  "answered_info" => "If no answer is checked, you abstain or voted anonymously.",
+  
+  "percent" => "Percent",
   "user" => "User",
   "count" => "Answers",
   "until" => "running until",

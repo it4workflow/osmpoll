@@ -18,8 +18,10 @@ return array(
   "answer" => "Resposta",
   "answer_placeholder" => "identificador com até 30 caracteres",
   "answer_description" => "Descrição",
+  
+  "answered_info" => "If no answer is checked, you abstain or voted anonymously.",
+  
   "percent" => "Percentual",
-
   "user" => "Usuário",
   "count" => "Respostas",
   "until" => "aberta até",

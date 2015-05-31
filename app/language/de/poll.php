@@ -18,8 +18,10 @@ return array(
   "answer" => "Antwort",
   "answer_placeholder" => "max. 30 Zeichen (Schlagwort)",
   "answer_description" => "Beschreibung",
-  "percent" => "Prozent",
 
+  "answered_info" => "Wenn keine Antwort markiert ist, dann hast du dich enthalten oder anonym abgestimmt.",
+  
+  "percent" => "Prozent",
   "user" => "User",
   "count" => "Stimmen",
   "until" => "läuft bis",

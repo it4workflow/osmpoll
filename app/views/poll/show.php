@@ -14,6 +14,9 @@
               <span class="glyphicon glyphicon-<?=$answer->id==$data['answer']->id?"check":"unchecked";?>"></span> <strong><?=htmlspecialchars($answer->antwort); ?></strong> <?=htmlspecialchars($answer->description); ?>
             </div>
           <?php } ?>
+          <?php if($data['closed'] || $data['answered']) { ?>
+              <span class="glyphicon glyphicon-info-sign"></span> <?=core\language::show('answered_info','poll', \helpers\session::get('language')) ?>
+          <?php } ?>
           </div>
         <?php } else { ?>
         <form method="post" name="answer" role="form">
