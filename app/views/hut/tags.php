@@ -44,6 +44,19 @@
       <?php } ?>
       <?php if (\helpers\session::get('logged_in')) { ?>
       <div class="row">
+        <form action="<?=DIR.'hut/'.$tag->hut_id.'/tag/'.$tag->id.'/comment/add'; ?>" method="post" name="comment" role="form">
+          <div class="col-sm-2">&nbsp;</div>
+            <div class="col-sm-8">
+              <textarea name="tagcomment" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="col-sm-2">
+            <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
+            </div>
+        </form>
+      </div>
+      <?php } ?>
+      <?php if (\helpers\session::get('logged_in')) { ?>
+      <div class="row">
         <form action="<?=DIR.'hut/'.$data['hut'][0]->id.'/tag/'.$tag->id.'/add'; ?>" method="post" name="huttag" role="form">
           <div class="col-sm-4 text-right"><?=core\language::show('new_subtag','hut', \helpers\session::get('language')) ?></div>
           <div class="col-sm-2">
@@ -56,19 +69,6 @@
             <input class="form-control" type="text" name="tagvalue" placeholder="value" />
           </div>
           <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','hut', \helpers\session::get('language')) ?></button>
-        </form>
-      </div>
-      <?php } ?>
-      <?php if (\helpers\session::get('logged_in')) { ?>
-      <div class="row">
-        <form action="<?=DIR.'hut/'.$tag->hut_id.'/tag/'.$tag->id.'/comment/add'; ?>" method="post" name="comment" role="form">
-          <div class="col-sm-2">&nbsp;</div>
-            <div class="col-sm-8">
-              <textarea name="tagcomment" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="col-sm-2">
-            <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
-            </div>
         </form>
       </div>
       <?php } ?>
