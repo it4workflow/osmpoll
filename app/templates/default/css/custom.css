@@ -1,5 +1,5 @@
 .antispam {
-	display: none
+  display: none
 }
 
 .navbar .selected {
@@ -25,4 +25,22 @@
 
 .flag-pt {
   background-image: url('../images/flag_pt.svg');
+}
+
+.tag {
+  background-color: #EEE;
+} 
+
+.subtag {
+    
+}
+
+.tagrow {
+  border: #EEE solid;
+  margin-bottom: .4em;
+}
+
+.tagrow .row {
+  font-size: 1.4em;
+  margin: 0;
 }

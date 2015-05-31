@@ -1,4 +1,9 @@
 <div class="container">
+  
+    <div class="alert alert-info">
+      <a href="<?=DIR.'hut';?>"><?=core\language::show('how_you_tag','hut', \helpers\session::get('language')) ?></a> <span class="label label-warning">alpha</span>
+    </div>
+    
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#open"><?=core\language::show('open_polls','main', \helpers\session::get('language')) ?></a></li>
     <?php if( count($data['todo']) > 0 ) { ?>

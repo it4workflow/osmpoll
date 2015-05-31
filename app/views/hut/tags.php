@@ -8,7 +8,8 @@
 </div>
 <?php 
   foreach($data['tags'] as $tag) { ?>
-    <div class="row" style="font-size: 1.4em; margin-bottom: 0.25em;">
+  <div class="tagrow">
+    <div class="row tag">
       <div class="col-sm-2">
         <div class="">
           <?php if (\helpers\session::get('logged_in')) { ?>  
@@ -32,55 +33,7 @@
         <a href="https://wiki.openstreetmap.org/wiki/Tag:<?=$tag->tagkey;?>%3D<?=$tag->tagvalue;?>" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('goto_wiki_tag','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$tag->tagvalue;?></span></a>
       </div>
     </div>
-    <?php foreach ($tag->subtags as $subtag) { ?>
-      <div class="row" style="font-size: 1.4em; margin-bottom: 0.25em;">
-        <div class="col-sm-2">&nbsp;</div>
-        <div class="col-sm-2">
-          <div class="">
-            <?php if (\helpers\session::get('logged_in')) { ?>
-            <a class="label <?=$data['uservotes'][$subtag->id]==1?'label-success':''?>" href="<?=DIR.'hut/'.$subtag->hut_id.($data['uservotes'][$subtag->id]==1?'/delete/':'/vote/up/').$subtag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['uservotes'][$subtag->id]==1?core\language::show('cancel_vote','hut', \helpers\session::get('language')) :core\language::show('vote','hut', \helpers\session::get('language'))?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['uservotes'][$subtag->id]==1?'':'text-muted'?>"></span></a>
-            <?php } ?>
-            <span class="label <?php if ($subtag->votes>0) echo 'label-success'; if ($subtag->votes<0) echo 'label-danger'; if ($subtag->votes==0) echo 'label-default';?>" data-toggle="tooltip" data-placement="top" title="<?=$subtag->up; ?> | <?=$subtag->down; ?>"><?=$subtag->votes;?></span>            
-            <?php if (\helpers\session::get('logged_in')) { ?>
-            <a class="label <?=$data['uservotes'][$subtag->id]==-1?'label-danger':''?>" href="<?=DIR.'hut/'.$subtag->hut_id.($data['uservotes'][$subtag->id]==-1?'/delete/':'/vote/down/').$subtag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['uservotes'][$subtag->id]==-1?core\language::show('cancel_vote','hut', \helpers\session::get('language')):core\language::show('vote','hut', \helpers\session::get('language'))?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['uservotes'][$subtag->id]==-1?'':'text-muted'?>"></span></a>
-            <?php } ?>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <span class="glyphicon glyphicon-user" title="<?=$subtag->created_by?>" data-toggle="tooltip" data-placement="left"></span>
-          <span class="glyphicon glyphicon-time" title="<?=$subtag->created?>" data-toggle="tooltip" data-placement="top"></span>
-          <a href="#" data-toggle="tagcomment" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('show_comments','hut', \helpers\session::get('language')) ?>" data-id="<?=$subtag->id?>"><?=sizeof($subtag->comments)?>x <span class="glyphicon glyphicon-comment"></span></a>
-        </div>
-        <div class="col-sm-6">
-          <a href="https://wiki.openstreetmap.org/wiki/Key:<?=$subtag->tagkey;?>" data-toggle="tooltip" data-placement="left" title="<?=core\language::show('goto_wiki_key','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$subtag->tagkey;?></span></a> = 
-          <a href="https://wiki.openstreetmap.org/wiki/Tag:<?=$subtag->tagkey;?>%3D<?=$subtag->tagvalue;?>" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('goto_wiki_tag','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$subtag->tagvalue;?></span></a>
-        </div>
-      </div>
-      <div id="tagcomments_<?=$subtag->id?>" data-type="tagcomment" style="display: none;">
-        <?php foreach ($subtag->comments as $comment) { ?>
-        <div class="row">
-          <div class="col-sm-4">&nbsp;</div>
-          <div class="col-sm-8">
-            <blockquote><?=\helpers\parsedown::instance()->parse($comment->comment) ?><footer><?=htmlentities($comment->created_by);?>, <?=htmlentities($comment->created);?></footer></blockquote>  
-          </div>
-        </div>
-        <?php } ?>
-        <?php if (\helpers\session::get('logged_in')) { ?>
-        <div class="row">
-          <form action="<?=DIR.'hut/'.$tag->hut_id.'/tag/'.$subtag->id.'/comment/add'; ?>" method="post" name="comment" role="form">
-            <div class="col-sm-4">&nbsp;</div>
-              <div class="col-sm-6">
-                <textarea name="tagcomment" class="form-control" rows="1"></textarea>
-              </div>
-              <div class="col-sm-2">
-              <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
-              </div>
-          </form>
-        </div>
-        <?php } ?>
-      </div>        
-    <?php } ?>
-    <div id="tagcomments_<?=$tag->id?>" data-type="tagcomment" style="display: none;">
+<div id="tagcomments_<?=$tag->id?>" data-type="tagcomment" style="display: none;">
       <?php foreach ($tag->comments as $comment) { ?>
       <div class="row">
         <div class="col-sm-2">&nbsp;</div>
@@ -119,7 +72,55 @@
         </form>
       </div>
       <?php } ?>
-    </div>        
+    </div> 
+    <?php foreach ($tag->subtags as $subtag) { ?>
+      <div class="row subtag">
+        <div class="col-sm-2">
+          <div class="">
+            <?php if (\helpers\session::get('logged_in')) { ?>
+            <a class="label <?=$data['uservotes'][$subtag->id]==1?'label-success':''?>" href="<?=DIR.'hut/'.$subtag->hut_id.($data['uservotes'][$subtag->id]==1?'/delete/':'/vote/up/').$subtag->id?>" data-toggle="tooltip" data-placement="left" title="<?=$data['uservotes'][$subtag->id]==1?core\language::show('cancel_vote','hut', \helpers\session::get('language')) :core\language::show('vote','hut', \helpers\session::get('language'))?>" ><span class="glyphicon glyphicon-chevron-up glyphicon-thumbs-up <?=$data['uservotes'][$subtag->id]==1?'':'text-muted'?>"></span></a>
+            <?php } ?>
+            <span class="label <?php if ($subtag->votes>0) echo 'label-success'; if ($subtag->votes<0) echo 'label-danger'; if ($subtag->votes==0) echo 'label-default';?>" data-toggle="tooltip" data-placement="top" title="<?=$subtag->up; ?> | <?=$subtag->down; ?>"><?=$subtag->votes;?></span>            
+            <?php if (\helpers\session::get('logged_in')) { ?>
+            <a class="label <?=$data['uservotes'][$subtag->id]==-1?'label-danger':''?>" href="<?=DIR.'hut/'.$subtag->hut_id.($data['uservotes'][$subtag->id]==-1?'/delete/':'/vote/down/').$subtag->id?>" data-toggle="tooltip" data-placement="right" title="<?=$data['uservotes'][$subtag->id]==-1?core\language::show('cancel_vote','hut', \helpers\session::get('language')):core\language::show('vote','hut', \helpers\session::get('language'))?>" ><span class="glyphicon glyphicon-chevron-down glyphicon-thumbs-down <?=$data['uservotes'][$subtag->id]==-1?'':'text-muted'?>"></span></a>
+            <?php } ?>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <span class="glyphicon glyphicon-user" title="<?=$subtag->created_by?>" data-toggle="tooltip" data-placement="left"></span>
+          <span class="glyphicon glyphicon-time" title="<?=$subtag->created?>" data-toggle="tooltip" data-placement="top"></span>
+          <a href="#" data-toggle="tagcomment" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('show_comments','hut', \helpers\session::get('language')) ?>" data-id="<?=$subtag->id?>"><?=sizeof($subtag->comments)?>x <span class="glyphicon glyphicon-comment"></span></a>
+        </div>
+        <div class="col-sm-8">
+          <a href="https://wiki.openstreetmap.org/wiki/Key:<?=$subtag->tagkey;?>" data-toggle="tooltip" data-placement="left" title="<?=core\language::show('goto_wiki_key','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$subtag->tagkey;?></span></a> = 
+          <a href="https://wiki.openstreetmap.org/wiki/Tag:<?=$subtag->tagkey;?>%3D<?=$subtag->tagvalue;?>" data-toggle="tooltip" data-placement="right" title="<?=core\language::show('goto_wiki_tag','hut', \helpers\session::get('language')) ?>" target="_blank"><span class="label label-default"><?=$subtag->tagvalue;?></span></a>
+        </div>
+      </div>
+      <div id="tagcomments_<?=$subtag->id?>" data-type="tagcomment" style="display: none;">
+        <?php foreach ($subtag->comments as $comment) { ?>
+        <div class="row">
+          <div class="col-sm-2">&nbsp;</div>
+          <div class="col-sm-8">
+            <blockquote><?=\helpers\parsedown::instance()->parse($comment->comment) ?><footer><?=htmlentities($comment->created_by);?>, <?=htmlentities($comment->created);?></footer></blockquote>  
+          </div>
+        </div>
+        <?php } ?>
+        <?php if (\helpers\session::get('logged_in')) { ?>
+        <div class="row">
+          <form action="<?=DIR.'hut/'.$tag->hut_id.'/tag/'.$subtag->id.'/comment/add'; ?>" method="post" name="comment" role="form">
+            <div class="col-sm-2">&nbsp;</div>
+              <div class="col-sm-8">
+                <textarea name="tagcomment" class="form-control" rows="1"></textarea>
+              </div>
+              <div class="col-sm-2">
+              <button type="submit" class="btn btn-default" name="add" ><?=core\language::show('btn_create','comment', \helpers\session::get('language')) ?></button>
+              </div>
+          </form>
+        </div>
+        <?php } ?>
+      </div>        
+    <?php } ?>
+  </div>
   <?php } ?>
 
 <?php if (\helpers\session::get('logged_in')) { ?>
